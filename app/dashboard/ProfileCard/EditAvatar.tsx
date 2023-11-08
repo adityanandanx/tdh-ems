@@ -58,7 +58,7 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
           className="object-cover"
         />
 
-        <AvatarFallback delayMs={10000}>
+        <AvatarFallback>
           <UserIcon width={64} height={64} />
         </AvatarFallback>
       </Avatar>
@@ -90,7 +90,10 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
                 }
                 alt={"Uploaded image preview"}
               />
-              <AvatarFallback className="opacity-100 group-hover:opacity-25 transition-opacity">
+              <AvatarFallback
+                delayMs={1000}
+                className="opacity-100 group-hover:opacity-25 transition-opacity"
+              >
                 <UserIcon width={128} height={128} />
               </AvatarFallback>
               <div
