@@ -63,7 +63,9 @@ const LoginForm = ({}: Props) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign Up</Button>
+        <Button disabled={isPending} type="submit">
+          Sign Up
+        </Button>
       </form>
     </Form>
   );

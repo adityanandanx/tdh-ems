@@ -37,6 +37,7 @@ export interface Database {
       events: {
         Row: {
           created_at: string
+          desc: string
           event_end: string | null
           event_start: string | null
           id: number
@@ -47,6 +48,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string
+          desc: string
           event_end?: string | null
           event_start?: string | null
           id?: number
@@ -57,6 +59,7 @@ export interface Database {
         }
         Update: {
           created_at?: string
+          desc?: string
           event_end?: string | null
           event_start?: string | null
           id?: number

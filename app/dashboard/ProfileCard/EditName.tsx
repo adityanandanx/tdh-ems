@@ -22,7 +22,7 @@ const EditName = ({ full_name }: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 group">
       {isEditing ? (
         <form
           onSubmit={(e) => {
@@ -51,6 +51,7 @@ const EditName = ({ full_name }: Props) => {
           <span className="w-full flex-1">{full_name || "Your Name"}</span>
           <Button
             onClick={() => setIsEditing(true)}
+            className="opacity-0 group-hover:opacity-100 transition-opacity z-10"
             size={"icon"}
             variant={"secondary"}
           >
