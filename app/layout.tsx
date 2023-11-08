@@ -4,6 +4,7 @@ import "./globals.css";
 import { currentUserActions } from "@/lib/userActions";
 import { Nav } from "@/components/shared/nav";
 import { ThemeProvider } from "@/components/theme-provider";
+import Provider from "@/components/provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +21,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Provider>
           <Nav />
           {children}
-        </ThemeProvider>
+        </Provider>
       </body>
     </html>
   );
