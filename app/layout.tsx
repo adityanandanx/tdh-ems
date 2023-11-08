@@ -5,6 +5,7 @@ import { currentUserActions } from "@/lib/userActions";
 import { Nav } from "@/components/shared/nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import Provider from "@/components/provider";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,12 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className}`}>
+        <div
+          className="fixed inset-0 pointer-events-none"
+          aria-hidden
+          id="visible-area"
+        ></div>
         <Provider>
           <Nav />
           {children}

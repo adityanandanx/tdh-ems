@@ -10,12 +10,13 @@ type Props = {};
 const Nav = async (props: Props) => {
   const user = await currentUserActions.getUser();
   return (
-    <header className="px-5 py-2 border-b">
+    <header className="px-5 py-2 border-b sticky top-0 w-full bg-background/25 backdrop-blur-md">
       <nav className="max-w-screen-xl mx-auto flex justify-between items-center">
         <Link href={"/"}>
           <h1 className="font-bold text-xl">EvE</h1>
         </Link>
         <div className="flex gap-5 items-center">
+          <Link href="/events">Events</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
           {user ? (
@@ -26,7 +27,7 @@ const Nav = async (props: Props) => {
             <>
               <Link href="/auth/login">
                 <Button variant={"secondary"} size={"sm"}>
-                  Login
+                  Log In
                 </Button>
               </Link>
               <Link href="/auth/signup">

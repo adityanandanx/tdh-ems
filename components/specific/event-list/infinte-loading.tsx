@@ -5,19 +5,21 @@ import { cn } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useScroll, useSpring, useTransform } from "framer-motion";
 import { RotateCw } from "lucide-react";
-import React, { useRef } from "react";
+import React, { RefObject, useRef } from "react";
 
 type Props = {
   eventsQuery: ReturnType<
     typeof useInfiniteQuery<{ events: EventsRow[]; pageParam: number }>
   >;
+  containerRef?: RefObject<HTMLElement>;
 };
 
-const InfiniteLoading = ({ eventsQuery }: Props) => {
+const InfiniteLoading = ({ eventsQuery, containerRef }: Props) => {
   const { isFetching, isFetchingNextPage, fetchNextPage } = eventsQuery;
 
   const loaderRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
+    container: containerRef,
     target: loaderRef,
     offset: ["start end", "end end"],
   });

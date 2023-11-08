@@ -30,7 +30,12 @@ const ProfileCard = async (props: Props) => {
         <CardTitle>
           <EditName full_name={userDetails.full_name} />
         </CardTitle>
-        <CardDescription>{user?.email || user?.phone}</CardDescription>
+        <CardDescription>
+          <div className="capitalize">
+            {userDetails.role.toLocaleLowerCase()}
+          </div>
+          {user?.email || user?.phone}
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
