@@ -48,7 +48,12 @@ const EditName = ({ full_name }: Props) => {
         </form>
       ) : (
         <>
-          <span className="w-full flex-1">{full_name || "Your Name"}</span>
+          <span
+            className="w-full flex-1 select-none"
+            onDoubleClick={() => setIsEditing(true)}
+          >
+            {full_name || "Your Name"}
+          </span>
           <Button
             onClick={() => setIsEditing(true)}
             className="opacity-0 group-hover:opacity-100 transition-opacity z-10"

@@ -6,14 +6,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { currentUserActions } from "@/lib/userActions";
-import React, { Suspense } from "react";
+import React, { HTMLAttributes, HTMLProps, Suspense } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditName from "./EditName";
 import LogoutButton from "@/app/auth/logout/LogoutButton";
 import Fallback from "./Fallback";
 import EditAvatar from "./EditAvatar";
 
-type Props = {};
+interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const ProfileCard = async (props: Props) => {
   const user = await currentUserActions.getUser();
@@ -21,7 +21,7 @@ const ProfileCard = async (props: Props) => {
   const userAvatarUrl = await currentUserActions.getUserAvatarURL();
 
   return (
-    <Card className="max-w-xs w-full">
+    <Card className="w-full" {...props}>
       <CardHeader>
         <EditAvatar
           full_name={userDetails.full_name}
@@ -40,10 +40,10 @@ const ProfileCard = async (props: Props) => {
   );
 };
 
-const ProfileCardWithSuspense = () => {
+const ProfileCardWithSuspense = ({ ...props }: Props) => {
   return (
     <Suspense fallback={<Fallback />}>
-      <ProfileCard />
+      <ProfileCard {...props} />
     </Suspense>
   );
 };

@@ -51,27 +51,30 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
 
   return (
     <div className="relative self-center group">
-      <Avatar className="w-48 h-48 text-5xl self-center">
-        <AvatarImage
-          src={avatar_url || undefined}
-          alt={`${full_name}'s profile picture`}
-          className="object-cover"
-        />
-
-        <AvatarFallback>
-          <UserIcon width={64} height={64} />
-        </AvatarFallback>
-      </Avatar>
-
       <Dialog>
         <DialogTrigger asChild>
-          <Button
-            className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-            variant={"secondary"}
-            size={"icon"}
-          >
-            <Pencil />
-          </Button>
+          <div>
+            <button className="">
+              <Avatar className="w-48 h-48 text-5xl self-center">
+                <AvatarImage
+                  src={avatar_url || undefined}
+                  alt={`${full_name}'s profile picture`}
+                  className="object-cover"
+                />
+
+                <AvatarFallback>
+                  <UserIcon width={64} height={64} />
+                </AvatarFallback>
+              </Avatar>
+            </button>
+            <Button
+              className="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+              variant={"secondary"}
+              size={"icon"}
+            >
+              <Pencil />
+            </Button>
+          </div>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -111,7 +114,7 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
               </div>
             </Avatar>
             <DialogFooter>
-              <Button>
+              <Button disabled={isPending}>
                 <Save /> Save
               </Button>
             </DialogFooter>

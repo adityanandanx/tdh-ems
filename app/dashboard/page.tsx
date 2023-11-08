@@ -1,11 +1,7 @@
 import { currentUserActions } from "@/lib/userActions";
-import React, { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ProfileCard } from "./ProfileCard";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import QRCode from "react-qr-code";
+import React from "react";
 import { redirect } from "next/navigation";
-import { EventList } from "./EventList";
+import { EventList } from "@/components/specific/event-list";
 
 type Props = {};
 
@@ -14,7 +10,6 @@ const Dashboard = async (props: Props) => {
   if (!user) redirect("/login");
   return (
     <div className="flex gap-5 items-start">
-      <ProfileCard />
       <EventList />
     </div>
   );

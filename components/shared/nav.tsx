@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { currentUserActions } from "@/lib/userActions";
 import ThemeDropdown from "../ui/theme-dropdown";
+import { ProfileCardDialog } from "../specific/profile-card";
 
 type Props = {};
 
@@ -33,7 +34,10 @@ const Nav = async (props: Props) => {
               </Link>
             </>
           )}
-          <ThemeDropdown />
+          <div className="flex gap-1">
+            <ThemeDropdown />
+            <ProfileCardDialog />
+          </div>
         </div>
       </nav>
     </header>
