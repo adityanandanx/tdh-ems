@@ -45,10 +45,30 @@ const getEvents = async (page: number, limit = 10) => {
   return data;
 };
 
+const searchEvents = async (search: string, page: number = 0, limit = 10) => {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from("events")
+    .select()
+    .ilike("title", `%${search}%`)
+    .range(page * limit, page * limit + limit - 1)
+    .order("registration_end", { ascending: true, nullsFirst: false });
+  if (error) throw new Error(error.message);
+  console.log(page);
+
+  return data;
+};
+
 const getAllEvents = async () => {
   const supabase = getSupabase();
   const { data, error } = await supabase.from("events").select();
   if (error) throw new Error(error.message);
   return data;
 };
-export { getEventGallery, getEventCoverImage, getEvents, getAllEvents };
+export {
+  getEventGallery,
+  getEventCoverImage,
+  getEvents,
+  getAllEvents,
+  searchEvents,
+};

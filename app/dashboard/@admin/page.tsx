@@ -6,7 +6,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getEvents } from "@/lib/public/actions";
+import { EventsRow } from "@/lib/dbTypes";
+import { getEvents, searchEvents } from "@/lib/public/actions";
 import { getCoverImageUrlFromName } from "@/lib/public/utils";
 import { formatTimeStamp } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, ImageIcon, Plus } from "lucide-react";
@@ -14,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import SearchBar from "./SearchBar";
 
 type Props = {
   searchParams: {
@@ -26,7 +28,14 @@ const AdminDashboard = async ({
   searchParams: { page = "0", search },
 }: Props) => {
   const pageNum = parseInt(page);
-  const events = await getEvents(pageNum, 10);
+  let events: EventsRow[];
+
+  if (search) {
+    events = await searchEvents(search, pageNum, 10);
+  } else {
+    events = await getEvents(pageNum, 10);
+  }
+
   if (events.length === 0 && pageNum > 0) redirect(`?page=${pageNum - 1}`);
 
   return (
@@ -35,6 +44,7 @@ const AdminDashboard = async ({
         <h1 className="text-2xl font-medium">Events</h1>
         <Link href={"/dashboard/e/event"}>Create Event</Link>
       </div>
+      <SearchBar />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {events.map((event) => (
           <Link href={`/dashboard/e/event/${event.id}`} className="">
