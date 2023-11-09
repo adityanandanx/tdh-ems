@@ -82,7 +82,7 @@ const setEventCoverImage = async (
   const supabase = getSupabase();
   const { error } = await supabase
     .from("events")
-    .update({ cover_image_url: publicUrl })
+    .update({ cover_image_url: publicUrl?.split("/").at(-1) })
     .eq("id", eventId);
   if (error) throw new Error(error.message);
   revalidatePath(`/dashboard/e/event/${eventId}`);

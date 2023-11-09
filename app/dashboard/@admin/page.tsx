@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getEvents } from "@/lib/public/actions";
+import { getCoverImageUrlFromName } from "@/lib/public/utils";
 import { formatTimeStamp } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, ImageIcon, Plus } from "lucide-react";
 import Image from "next/image";
@@ -17,10 +18,13 @@ import React from "react";
 type Props = {
   searchParams: {
     page: string;
+    search: string;
   };
 };
 
-const AdminDashboard = async ({ searchParams: { page = "0" } }: Props) => {
+const AdminDashboard = async ({
+  searchParams: { page = "0", search },
+}: Props) => {
   const pageNum = parseInt(page);
   const events = await getEvents(pageNum, 10);
   if (events.length === 0 && pageNum > 0) redirect(`?page=${pageNum - 1}`);
@@ -41,7 +45,10 @@ const AdminDashboard = async ({ searchParams: { page = "0" } }: Props) => {
                     width={256}
                     height={256}
                     className="h-32 object-cover w-full rounded-md"
-                    src={event.cover_image_url}
+                    src={getCoverImageUrlFromName(
+                      event.id,
+                      event.cover_image_url
+                    )}
                     alt={event.title + " cover image"}
                   />
                 ) : (

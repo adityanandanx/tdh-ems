@@ -14,6 +14,7 @@ import useNavHeight from "@/hooks/useNavHeight";
 import { formatTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
+import { getCoverImageUrlFromName } from "@/lib/public/utils";
 
 type Props = {
   event: EventsRow;
@@ -30,7 +31,7 @@ const EventListItem = ({ event }: Props) => {
         <Image
           width={384 * 2}
           height={606 * 2}
-          src={event.cover_image_url}
+          src={getCoverImageUrlFromName(event.id, event.cover_image_url)}
           className="rounded-lg w-full h-full object-cover"
           alt={`${event.title} cover image`}
         />
