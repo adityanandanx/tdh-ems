@@ -1,11 +1,11 @@
 "use client";
 import React, { useRef } from "react";
 import EventListItem from "./EventListItem";
-import { getEvents } from "./actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteLoading from "./infinte-loading";
 import useNavHeight from "@/hooks/useNavHeight";
 import useViewportHeight from "@/hooks/useViewportHeight";
+import { getEvents } from "@/lib/public/actions";
 
 type Props = {};
 

@@ -26,10 +26,13 @@ const updateEvent = async (
   if (error) throw new Error(error.message);
 };
 
-const createEvent = async (newdata: Omit<EventsRow, "id">) => {
+const createEvent = async (newdata: Omit<EventsRow, "id" | "created_at">) => {
   const supabase = getSupabase();
-  const { error } = await supabase.from("events").insert(newdata);
+  const { data, error } = await supabase.from("events").insert(newdata).select("id");
+  console.log("CREATED", newdata);
+
   if (error) throw new Error(error.message);
+  return data[0].id;
 };
 
 const deleteEvent = async (id: string) => {

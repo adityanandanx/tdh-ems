@@ -5,13 +5,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { eventSchema } from "./schema";
 import { EventsRow } from "@/lib/dbTypes";
-import { updateEvent } from "@/app/dashboard/@admin/actions";
+import { createEvent, updateEvent } from "@/app/dashboard/@admin/actions";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,25 +24,45 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn, formatTimeStamp } from "@/lib/utils";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { redirect } from "next/navigation";
 
 type Props = {
-  defaultValues: EventsRow;
+  defaultValues?: EventsRow;
+  action?: "update" | "create";
 };
 
-const EditEventForm = ({ defaultValues }: Props) => {
+const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof eventSchema>>({
     resolver: zodResolver(eventSchema),
-    defaultValues,
+    defaultValues: {
+      created_at: undefined,
+      cover_image_url: null,
+      event_end: null,
+      event_start: null,
+      registration_end: null,
+      registration_start: null,
+      ...defaultValues,
+    },
   });
 
   function onSubmit(values: z.infer<typeof eventSchema>) {
     console.log(values);
-    startTransition(() => updateEvent(values));
+    switch (action) {
+      case "update":
+        if (!defaultValues?.id) throw new Error("No ID for event update");
+        startTransition(() => updateEvent({ id: defaultValues.id, ...values }));
+        break;
+      case "create":
+        startTransition(async () => {
+          const id = await createEvent(values);
+          redirect(`/dashboard/e/event/${id}`);
+        });
+        break;
+    }
   }
 
   const onChangeDateToString = (
@@ -56,7 +75,8 @@ const EditEventForm = ({ defaultValues }: Props) => {
 
   return (
     <Form {...form}>
-      <div>
+      <div className="flex-1">
+        {/* <Button onClick={() => console.log(form.getValues())}>LOG</Button> */}
         <h1 className="text-2xl font-medium">Event Details</h1>
         <p className="text-sm mb-4">All the details regarding the event</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

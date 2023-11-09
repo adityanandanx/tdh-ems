@@ -29,4 +29,23 @@ const getEventCoverImage = async (eventId: string) => {
   return data[0].cover_image_url;
 };
 
-export { getEventGallery, getEventCoverImage };
+const getEvents = async (page: number, limit = 10) => {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from("events")
+    .select()
+    .range(page * limit, page * limit + limit - 1)
+    .order("registration_end", { ascending: true, nullsFirst: false });
+  if (error) throw new Error(error.message);
+  console.log(page);
+
+  return data;
+};
+
+const getAllEvents = async () => {
+  const supabase = getSupabase();
+  const { data, error } = await supabase.from("events").select();
+  if (error) throw new Error(error.message);
+  return data;
+};
+export { getEventGallery, getEventCoverImage, getEvents, getAllEvents };

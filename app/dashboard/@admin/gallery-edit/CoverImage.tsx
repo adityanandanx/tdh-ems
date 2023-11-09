@@ -7,11 +7,11 @@ import Image from "next/image";
 import React from "react";
 
 type Props = {
-  eventId: string;
+  eventId?: string;
 };
 
 const CoverImage = async ({ eventId }: Props) => {
-  const cover = await getEventCoverImage(eventId);
+  const cover = eventId ? await getEventCoverImage(eventId) : null;
   return (
     <div className="mb-10">
       <h1 className="text-2xl font-medium">Cover</h1>

@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
 import { getEvent } from "../../../actions";
 import { notFound } from "next/navigation";
-import { EditEventForm } from "./edit-event-form";
+import { EditEventForm } from "../../../edit-event-form";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Gallery } from "./gallery-edit";
+import { Gallery } from "../../../gallery-edit";
 import { Separator } from "@/components/ui/separator";
 
 type Props = {
