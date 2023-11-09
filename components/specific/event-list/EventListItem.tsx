@@ -11,6 +11,7 @@ import type { EventsRow } from "@/lib/dbTypes";
 import { Table, TableHeader, TableRow } from "@/components/ui/table";
 import { format } from "date-fns";
 import useNavHeight from "@/hooks/useNavHeight";
+import { formatTimeStamp } from "@/lib/utils";
 
 type Props = {
   event: EventsRow;
@@ -44,12 +45,6 @@ const EventListItem = ({ event }: Props) => {
       </div>
     </Card>
   );
-};
-
-const formatTimeStamp = (ts: string | null, null_msg?: string) => {
-  if (!ts) return null_msg;
-  const t = new Date(ts);
-  return format(t, "E do LLLL, yyyy");
 };
 
 export default EventListItem;

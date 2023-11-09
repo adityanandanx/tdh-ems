@@ -4,9 +4,8 @@ import { CookieOptions, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "@/schema.gen";
 
-const cookieStore = cookies();
-
 const getSupabase = () => {
+  "use server";
   const cookieStore = cookies();
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

@@ -13,7 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { editAvatar } from "./actions/editAvatar";
+import { editAvatar } from "./actions";
 import { Input } from "@/components/ui/input";
 
 type Props = {
@@ -23,12 +23,6 @@ type Props = {
 
 const EditAvatar = ({ full_name, avatar_url }: Props) => {
   const [isPending, startTransition] = useTransition();
-  // const onDrop = useCallback((acceptedFiles: File[]) => {
-  //   console.log(acceptedFiles);
-
-  //   const f = acceptedFiles[0];
-  //   // setPath(URL.createObjectURL(f));
-  // }, []);
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({

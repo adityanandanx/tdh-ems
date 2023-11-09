@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pencil, Check } from "lucide-react";
 import React, { useRef, useState, useTransition } from "react";
-import { editDetails } from "./actions/editDetails";
+import { editDetails } from "./actions";
 
 type Props = {
   full_name: string | null;
