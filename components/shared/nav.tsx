@@ -10,7 +10,7 @@ type Props = {};
 const Nav = async (props: Props) => {
   const user = await currentUserActions.getUser();
   return (
-    <header className="px-5 py-2 border-b sticky top-0 w-full bg-background/25 backdrop-blur-md">
+    <header className="px-5 py-2 border-b sticky top-0 w-full bg-background/25 backdrop-blur-md z-50">
       <nav className="max-w-screen-xl mx-auto flex justify-between items-center">
         <Link href={"/"}>
           <h1 className="font-bold text-xl">EvE</h1>

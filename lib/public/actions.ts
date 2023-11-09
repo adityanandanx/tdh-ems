@@ -1,0 +1,32 @@
+"use server";
+
+import { getSupabase } from "../supabase";
+
+const getEventGallery = async (eventId: string) => {
+  const supabase = getSupabase();
+  const { data, error } = await supabase.storage
+    .from("event")
+    .list(`${eventId}/gallery`, { sortBy: { column: "name", order: "asc" } });
+  if (error) throw new Error(error.message);
+  const imageURLs: string[] = data.map(
+    (d) =>
+      supabase.storage
+        .from("event")
+        .getPublicUrl(`${eventId}/gallery/${d.name}`).data.publicUrl
+  );
+  console.log(imageURLs);
+
+  return imageURLs;
+};
+
+const getEventCoverImage = async (eventId: string) => {
+  const supabase = getSupabase();
+  const { data, error } = await supabase
+    .from("events")
+    .select("cover_image_url")
+    .eq("id", eventId);
+  if (error) throw new Error(error.message);
+  return data[0].cover_image_url;
+};
+
+export { getEventGallery, getEventCoverImage };

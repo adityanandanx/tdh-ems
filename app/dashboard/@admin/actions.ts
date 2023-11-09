@@ -1,6 +1,7 @@
 "use server";
 
 import { EventsRow } from "@/lib/dbTypes";
+import { getEventCoverImage } from "@/lib/public/actions";
 import { getSupabase } from "@/lib/supabase";
 import { currentUserActions } from "@/lib/userActions";
 import { revalidatePath } from "next/cache";
@@ -37,23 +38,6 @@ const deleteEvent = async (id: string) => {
   if (error) throw new Error(error.message);
 };
 
-const getEventGallery = async (eventId: string) => {
-  const supabase = getSupabase();
-  const { data, error } = await supabase.storage
-    .from("event")
-    .list(`${eventId}/gallery`, { sortBy: { column: "name", order: "asc" } });
-  if (error) throw new Error(error.message);
-  const imageURLs: string[] = data.map(
-    (d) =>
-      supabase.storage
-        .from("event")
-        .getPublicUrl(`${eventId}/gallery/${d.name}`).data.publicUrl
-  );
-  console.log(imageURLs);
-
-  return imageURLs;
-};
-
 const uploadImageToGallery = async (eventId: string, fdata: FormData) => {
   const file = fdata.get("image")! as File;
   const supabase = getSupabase();
@@ -74,6 +58,10 @@ const uploadImageToGallery = async (eventId: string, fdata: FormData) => {
 const deleteImageFromGallery = async (eventId: string, imageURL: string) => {
   const supabase = getSupabase();
   const imgPath = imageURL.split("event/")[1];
+  const coverURL = await getEventCoverImage(eventId);
+  if (coverURL === imageURL) {
+    setEventCoverImage(eventId, null);
+  }
   const { data, error } = await supabase.storage
     .from("event")
     .remove([imgPath]);
@@ -84,12 +72,15 @@ const deleteImageFromGallery = async (eventId: string, imageURL: string) => {
   revalidatePath("/events");
 };
 
-const uploadCoverImageToGallery = async (eventId: string, fdata: FormData) => {
-  const file = fdata.get("image")! as File;
+const setEventCoverImage = async (
+  eventId: string,
+  publicUrl: string | null
+) => {
   const supabase = getSupabase();
-  const { data, error } = await supabase.storage
-    .from("event")
-    .upload(`${eventId}/gallery/cover`, file, { upsert: true });
+  const { error } = await supabase
+    .from("events")
+    .update({ cover_image_url: publicUrl })
+    .eq("id", eventId);
   if (error) throw new Error(error.message);
   revalidatePath(`/dashboard/e/event/${eventId}`);
   revalidatePath("/events");
@@ -100,8 +91,7 @@ export {
   updateEvent,
   createEvent,
   deleteEvent,
-  getEventGallery,
-  uploadCoverImageToGallery,
+  setEventCoverImage,
   uploadImageToGallery,
   deleteImageFromGallery,
 };

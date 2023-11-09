@@ -36,6 +36,7 @@ export interface Database {
     Tables: {
       events: {
         Row: {
+          cover_image_url: string | null
           created_at: string
           desc: string
           event_end: string | null
@@ -47,6 +48,7 @@ export interface Database {
           venue: string | null
         }
         Insert: {
+          cover_image_url?: string | null
           created_at?: string
           desc: string
           event_end?: string | null
@@ -58,6 +60,7 @@ export interface Database {
           venue?: string | null
         }
         Update: {
+          cover_image_url?: string | null
           created_at?: string
           desc?: string
           event_end?: string | null

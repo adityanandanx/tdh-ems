@@ -39,7 +39,7 @@ const UploadDropZone = ({ eventId }: Props) => {
   return (
     <form onSubmit={onSubmit} method="POST" encType="multipart/form-data">
       <>
-        <h1 className="mt-5 text-xl">Select Images</h1>
+        <h1 className="mt-5 text-lg">Select Images</h1>
         <div className="flex flex-wrap gap-2 p-2">
           {files.map((file) => (
             <div className="relative group h-32">
