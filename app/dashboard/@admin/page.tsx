@@ -47,26 +47,28 @@ const AdminDashboard = async ({
       <SearchBar />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {events.map((event) => (
-          <Link href={`/dashboard/e/event/${event.id}`} className="">
+          <Link
+            href={`/dashboard/e/event/${event.id}`}
+            className="overflow-hidden"
+          >
             <Card key={event.id} className="w-full h-full">
+              {event.cover_image_url ? (
+                <Image
+                  width={256}
+                  height={256}
+                  className="h-32 object-cover w-full rounded-md shadow-lg shadow-primary-foreground/50"
+                  src={getCoverImageUrlFromName(
+                    event.id,
+                    event.cover_image_url
+                  )}
+                  alt={event.title + " cover image"}
+                />
+              ) : (
+                <div className="h-32 w-full flex items-center justify-center bg-muted rounded-md">
+                  <ImageIcon />
+                </div>
+              )}
               <CardHeader>
-                {event.cover_image_url ? (
-                  <Image
-                    width={256}
-                    height={256}
-                    className="h-32 object-cover w-full rounded-md"
-                    src={getCoverImageUrlFromName(
-                      event.id,
-                      event.cover_image_url
-                    )}
-                    alt={event.title + " cover image"}
-                  />
-                ) : (
-                  <div className="h-32 w-full flex items-center justify-center bg-muted rounded-md">
-                    <ImageIcon />
-                  </div>
-                )}
-                <Separator />
                 <CardTitle>{event.title}</CardTitle>
                 <CardDescription className="">
                   on {formatTimeStamp(event.event_start)}
