@@ -61,7 +61,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
         break;
       case "create":
         startTransition(async () => {
-          const id = await createEvent({ ...values, published: false });
+          const id = await createEvent({ ...values });
           redirect(`/dashboard/e/event/${id}`);
         });
         break;

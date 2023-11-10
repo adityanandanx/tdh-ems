@@ -8,7 +8,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { EventsRow } from "@/lib/dbTypes";
 import { getEvents, searchEvents } from "@/lib/public/actions";
-import { getCoverImageUrlFromName } from "@/lib/public/utils";
+import { getGalleryImageUrlFromName } from "@/lib/public/utils";
 import { cn, formatTimeStamp } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, ImageIcon, Plus } from "lucide-react";
 import Image from "next/image";
@@ -60,7 +60,7 @@ const AdminDashboard = async ({
                   width={300}
                   height={128}
                   className="h-32 object-cover w-full rounded-md shadow-lg shadow-primary-foreground/50"
-                  src={getCoverImageUrlFromName(
+                  src={getGalleryImageUrlFromName(
                     event.id,
                     event.cover_image_url
                   )}

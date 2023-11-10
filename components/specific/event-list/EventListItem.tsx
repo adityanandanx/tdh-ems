@@ -14,7 +14,8 @@ import useNavHeight from "@/hooks/useNavHeight";
 import { cn, formatTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
-import { getCoverImageUrlFromName } from "@/lib/public/utils";
+import { getGalleryImageUrlFromName } from "@/lib/public/utils";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   event: EventsRow;
@@ -25,8 +26,8 @@ const EventListItem = ({ event }: Props) => {
   return (
     <Card
       className={cn(
-        "relative group max-w-sm w-full snap-center shrink-0",
-        event.published ? "" : "opacity-50"
+        "relative group w-auto aspect-9/16 snap-center shrink-0 z-0 flex flex-col justify-end overflow-hidden",
+        event.published ? "" : "hidden"
       )}
       style={{ height: window.innerHeight - navHeight - 32 }}
     >
@@ -34,8 +35,8 @@ const EventListItem = ({ event }: Props) => {
         <Image
           width={384 * 2}
           height={606 * 2}
-          src={getCoverImageUrlFromName(event.id, event.cover_image_url)}
-          className="rounded-lg w-full h-full object-cover"
+          src={getGalleryImageUrlFromName(event.id, event.cover_image_url)}
+          className="absolute inset-0 opacity-100 -z-10 rounded-lg w-full h-full object-cover"
           alt={`${event.title} cover image`}
         />
       ) : (
@@ -46,14 +47,31 @@ const EventListItem = ({ event }: Props) => {
           />
         </>
       )}
-      <div className="absolute left-full max-w-sm w-full top-0 bottom-0">
-        <CardHeader>
-          <CardTitle>{event.title}</CardTitle>
-          <CardDescription>{event.desc}</CardDescription>
-          <CardDescription>Venue: {event.venue}</CardDescription>
+      <div className="max-w-sm w-full z-20 bg-gradient-to-t from-card to-transparent">
+        <CardHeader className="pb-2 pt-20">
+          <div>
+            <CardTitle className="text-xl">{event.title}</CardTitle>
+            <CardDescription className="text-sm text-foreground opacity-75">
+              {formatTimeStamp(event.event_start)}
+            </CardDescription>
+          </div>
+          {event.registration_start &&
+          new Date() > new Date(event.registration_start) ? (
+            <div className="flex flex-col text-center">
+              <Button className="w-fit" size={"sm"} variant={"default"}>
+                Register
+              </Button>
+              {/* <span className="text-xs">
+                {formatTimeStamp(event.registration_end)}
+              </span> */}
+            </div>
+          ) : (
+            <div className="text-sm underline">Registrations start soon</div>
+          )}
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-0">
+        <CardContent className="">
+          <p className="text-xs overflow-hidden line-clamp-2">{event.desc}</p>
+          {/* <div className="flex flex-col gap-0">
             <span className="text-xs font-bold">Registration Starts</span>
             <span>{formatTimeStamp(event.registration_start)}</span>
             <span className="text-xs font-bold">Registration Ends</span>
@@ -62,7 +80,7 @@ const EventListItem = ({ event }: Props) => {
             <span>{formatTimeStamp(event.event_start)}</span>
             <span className="text-xs font-bold">Event End</span>
             <span>{formatTimeStamp(event.event_end)}</span>
-          </div>
+          </div> */}
         </CardContent>
       </div>
     </Card>

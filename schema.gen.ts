@@ -42,9 +42,11 @@ export interface Database {
           event_end: string | null
           event_start: string | null
           id: number
+          owner: string
           published: boolean
           registration_end: string | null
           registration_start: string | null
+          tags: string[]
           title: string
           venue: string | null
         }
@@ -55,9 +57,11 @@ export interface Database {
           event_end?: string | null
           event_start?: string | null
           id?: number
+          owner?: string
           published?: boolean
           registration_end?: string | null
           registration_start?: string | null
+          tags?: string[]
           title: string
           venue?: string | null
         }
@@ -68,13 +72,22 @@ export interface Database {
           event_end?: string | null
           event_start?: string | null
           id?: number
+          owner?: string
           published?: boolean
           registration_end?: string | null
           registration_start?: string | null
+          tags?: string[]
           title?: string
           venue?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "events_owner_fkey"
+            columns: ["owner"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       participations: {
         Row: {

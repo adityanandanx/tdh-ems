@@ -1,7 +1,7 @@
 "use server";
 
 import { getSupabase } from "../supabase";
-import { getCoverImageUrlFromName } from "./utils";
+import { getGalleryImageUrlFromName } from "./utils";
 
 const getEventGallery = async (eventId: string) => {
   const supabase = getSupabase();
@@ -27,8 +27,11 @@ const getEventCoverImage = async (eventId: string) => {
     .select("cover_image_url")
     .eq("id", eventId);
   if (error) throw new Error(error.message);
-
-  const publicUrl = getCoverImageUrlFromName(eventId, data[0].cover_image_url);
+  if (!data[0].cover_image_url) return null;
+  const publicUrl = getGalleryImageUrlFromName(
+    eventId,
+    data[0].cover_image_url
+  );
   return publicUrl;
 };
 
