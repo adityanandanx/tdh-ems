@@ -5,20 +5,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { currentUserActions } from "@/lib/userActions";
 import React, { HTMLAttributes, HTMLProps, Suspense } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import EditName from "./EditName";
 import LogoutButton from "@/app/auth/logout/LogoutButton";
 import Fallback from "./Fallback";
 import EditAvatar from "./EditAvatar";
+import { getUser, getUserAvatarURL, getUserDetails } from "@/lib/userActions";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const ProfileCard = async (props: Props) => {
-  const user = await currentUserActions.getUser();
-  const userDetails = await currentUserActions.getDetails();
-  const userAvatarUrl = await currentUserActions.getUserAvatarURL();
+  const user = await getUser();
+  const userDetails = await getUserDetails();
+  const userAvatarUrl = await getUserAvatarURL();
 
   return (
     <Card className="w-full" {...props}>

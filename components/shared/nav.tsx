@@ -1,14 +1,14 @@
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { currentUserActions } from "@/lib/userActions";
 import ThemeDropdown from "../ui/theme-dropdown";
 import { ProfileCardDialog } from "../specific/profile-card";
+import { getUser } from "@/lib/userActions";
 
 type Props = {};
 
 const Nav = async (props: Props) => {
-  const user = await currentUserActions.getUser();
+  const user = await getUser();
   return (
     <header className="px-5 py-2 border-b sticky top-0 w-full bg-background/25 backdrop-blur-md z-50">
       <nav className="max-w-screen-xl mx-auto flex justify-between items-center">

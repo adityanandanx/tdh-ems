@@ -1,14 +1,14 @@
 "use server";
 
 import { getSupabase } from "@/lib/supabase";
-import { currentUserActions } from "@/lib/userActions";
 import { revalidatePath } from "next/cache";
 import type { UsersRow } from "@/lib/dbTypes";
+import { getUser } from "@/lib/userActions";
 
 export const editAvatar = async (fdata: FormData) => {
   const supabase = getSupabase();
 
-  const user = await currentUserActions.getUser();
+  const user = await getUser();
   if (!user) throw new Error("User not logged in.");
   const avatar = fdata.get("avatar");
 
@@ -23,10 +23,9 @@ export const editAvatar = async (fdata: FormData) => {
   revalidatePath("/dashboard");
 };
 
-
 export const editDetails = async (newdata: Partial<UsersRow>) => {
   const supabase = getSupabase();
-  const user = await currentUserActions.getUser();
+  const user = await getUser();
   if (!user) throw new Error("No user");
   const { error } = await supabase
     .from("users")

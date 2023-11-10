@@ -3,7 +3,6 @@
 import { EventsRow } from "@/lib/dbTypes";
 import { getEventCoverImage } from "@/lib/public/actions";
 import { getSupabase } from "@/lib/supabase";
-import { currentUserActions } from "@/lib/userActions";
 import { revalidatePath } from "next/cache";
 
 const getEvent = async (id: string) => {

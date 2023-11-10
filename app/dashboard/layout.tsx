@@ -1,4 +1,4 @@
-import { currentUserActions } from "@/lib/userActions";
+import { getUser, getUserRole } from "@/lib/userActions";
 import { redirect } from "next/navigation";
 import React, { ReactNode } from "react";
 
@@ -15,9 +15,9 @@ const DashboardLayout = async ({
   participant,
   volunteer,
 }: Props) => {
-  const user = await currentUserActions.getUser();
+  const user = await getUser();
   if (!user) redirect("/auth/login");
-  const role = await currentUserActions.getRole();
+  const role = await getUserRole();
   return (
     <main>
       <section>

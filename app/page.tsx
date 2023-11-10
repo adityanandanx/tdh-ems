@@ -1,7 +1,3 @@
-import { getSupabase } from "@/lib/supabase";
-import { currentUserActions } from "@/lib/userActions";
-import Image from "next/image";
-
 export default async function Home() {
   return (
     <main>

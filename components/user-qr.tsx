@@ -1,4 +1,4 @@
-import { currentUserActions } from "@/lib/userActions";
+import { getUser } from "@/lib/userActions";
 import React, { Suspense } from "react";
 import QRCode from "react-qr-code";
 
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const QR = async ({ value }: Props) => {
-  const user = await currentUserActions.getUser();
+  const user = await getUser();
   if (!user) return null;
   return (
     <div className="w-full aspect-square p-5 bg-white rounded-2xl">

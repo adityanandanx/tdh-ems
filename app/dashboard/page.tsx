@@ -1,12 +1,12 @@
-import { currentUserActions } from "@/lib/userActions";
 import React from "react";
 import { redirect } from "next/navigation";
+import { getUser, getUserRole } from "@/lib/userActions";
 
 type Props = {};
 
 const Dashboard = async (props: Props) => {
-  const user = await currentUserActions.getUser();
-  const role = await currentUserActions.getRole();
+  const user = await getUser();
+  const role = await getUserRole();
   if (!user) redirect("/login");
   return <div className="flex gap-5 items-start">this is main page</div>;
 };
