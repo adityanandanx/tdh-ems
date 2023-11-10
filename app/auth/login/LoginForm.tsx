@@ -17,18 +17,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useSearchParams } from "next/navigation";
 
 type Props = {};
 
 const LoginForm = ({}: Props) => {
   const [isPending, startTransition] = useTransition();
 
+  const searchParams = useSearchParams();
+  const toRegister = searchParams.get("register");
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
   });
 
   function onSubmit(values: z.infer<typeof loginFormSchema>) {
-    startTransition(() => handleLogin(values));
+    startTransition(() => handleLogin(values, toRegister));
   }
 
   return (

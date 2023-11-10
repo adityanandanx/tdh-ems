@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React from "react";
+import React, { useTransition } from "react";
 import type { EventsRow } from "@/lib/dbTypes";
 import { Table, TableHeader, TableRow } from "@/components/ui/table";
 import { format } from "date-fns";
@@ -16,13 +16,30 @@ import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { getGalleryImageUrlFromName } from "@/lib/public/utils";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { revalidateTag } from "next/cache";
+import { registerForEvent } from "./actions";
 
 type Props = {
   event: EventsRow;
 };
 
 const EventListItem = ({ event }: Props) => {
+  const [isPending, startTransition] = useTransition();
   const navHeight = useNavHeight();
+  const searchParams = useSearchParams();
+
+  const getSearchURLByTag = (tag: string) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("tag", tag);
+    return "/events?" + newParams.toString();
+  };
+
+  const handleRegister = () => {
+    startTransition(() => registerForEvent(event.id.toString()));
+  };
+
   return (
     <Card
       className={cn(
@@ -58,7 +75,13 @@ const EventListItem = ({ event }: Props) => {
           {event.registration_start &&
           new Date() > new Date(event.registration_start) ? (
             <div className="flex flex-col text-center">
-              <Button className="w-fit" size={"sm"} variant={"default"}>
+              <Button
+                disabled={isPending}
+                onClick={handleRegister}
+                className="w-fit"
+                size={"sm"}
+                variant={"default"}
+              >
                 Register
               </Button>
               {/* <span className="text-xs">
@@ -71,16 +94,13 @@ const EventListItem = ({ event }: Props) => {
         </CardHeader>
         <CardContent className="">
           <p className="text-xs overflow-hidden line-clamp-2">{event.desc}</p>
-          {/* <div className="flex flex-col gap-0">
-            <span className="text-xs font-bold">Registration Starts</span>
-            <span>{formatTimeStamp(event.registration_start)}</span>
-            <span className="text-xs font-bold">Registration Ends</span>
-            <span>{formatTimeStamp(event.registration_end)}</span>
-            <span className="text-xs font-bold">Event On</span>
-            <span>{formatTimeStamp(event.event_start)}</span>
-            <span className="text-xs font-bold">Event End</span>
-            <span>{formatTimeStamp(event.event_end)}</span>
-          </div> */}
+          <div className="flex flex-wrap gap-1 leading-none my-2 text-xs">
+            {event.tags.map((tag) => (
+              <Link href={getSearchURLByTag(tag)} className="hover:underline">
+                #{tag}
+              </Link>
+            ))}
+          </div>
         </CardContent>
       </div>
     </Card>

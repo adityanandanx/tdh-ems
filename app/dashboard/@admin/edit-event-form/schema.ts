@@ -13,6 +13,7 @@ const eventSchema = z.object({
   event_end: dateSchema,
   cover_image_url: z.string().nullable(),
   published: z.boolean().optional(),
+  tags: z.array(z.string()).max(7, "You can only select upto 10 tags"),
 });
 
 export { eventSchema };

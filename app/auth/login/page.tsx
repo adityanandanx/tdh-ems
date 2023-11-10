@@ -11,30 +11,21 @@ import { redirect } from "next/navigation";
 import React from "react";
 import LoginForm from "./LoginForm";
 
-type Props = {};
-
-const LoginPage = (props: Props) => {
-  const handleLogin = async (fdata: FormData) => {
-    "use server";
-
-    const supabase = getSupabase();
-
-    const email = fdata.get("email") as string;
-    const password = fdata.get("password") as string;
-    if (!email || !password) return null;
-    const { error, data } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) throw new Error(error.message);
-    revalidatePath("/", "layout");
-    redirect("/");
+type Props = {
+  searchParams: {
+    register?: string;
   };
+};
 
+const LoginPage = ({ searchParams }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Welcome Back!</CardTitle>
+        <CardTitle>
+          {searchParams.register
+            ? "Log In to register for events"
+            : "Welcome Back!"}
+        </CardTitle>
         <CardDescription>Login to your account</CardDescription>
       </CardHeader>
       <CardContent>

@@ -89,34 +89,34 @@ export interface Database {
           }
         ]
       }
-      participations: {
+      registrations: {
         Row: {
-          created_at: string
           event_id: number
           id: number
+          registered_at: string
           user_id: string
         }
         Insert: {
-          created_at?: string
           event_id: number
           id?: number
+          registered_at?: string
           user_id?: string
         }
         Update: {
-          created_at?: string
           event_id?: number
           id?: number
+          registered_at?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "participations_event_id_fkey"
+            foreignKeyName: "registrations_event_id_fkey"
             columns: ["event_id"]
             referencedRelation: "events"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "participations_user_id_fkey"
+            foreignKeyName: "registrations_user_id_fkey"
             columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]

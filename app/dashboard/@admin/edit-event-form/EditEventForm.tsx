@@ -25,10 +25,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn, formatTimeStamp } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { redirect } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
+import { TagInput } from "@/components/ui/tag-input";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -48,6 +49,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
       registration_end: null,
       registration_start: null,
       published: undefined,
+      tags: [],
       ...defaultValues,
     },
   });
@@ -291,15 +293,17 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
             control={form.control}
             name="published"
             render={({ field }) => (
-              <FormItem className="flex flex-1 justify-between items-center border rounded-lg p-5">
-                <div className="">
-                  <FormLabel className="text-base">Published</FormLabel>
-                  <FormDescription>
+              <FormItem className="flex flex-1 gap-5 items-center border p-5 rounded-lg">
+                {field.value ? <EyeIcon /> : <EyeOffIcon />}
+                <div className="flex-1 flex flex-col pb-2">
+                  <FormLabel className="text-base m-0">Published</FormLabel>
+                  <FormDescription className="m-0">
                     Make event publically available and allow registrations
                   </FormDescription>
                 </div>
                 <FormControl>
                   <Switch
+                    className=""
                     checked={field.value || undefined}
                     onCheckedChange={field.onChange}
                   />
@@ -308,8 +312,40 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tags</FormLabel>
+                <FormDescription>An event can have upto 7 tags</FormDescription>
+                <FormControl>
+                  <TagInput
+                    textCase={"lowercase"}
+                    variant={"default"}
+                    maxTags={7}
+                    delimiterList={[",", "Enter", "Tab"]}
+                    tags={field.value.map((f) => ({
+                      id: f,
+                      text: f,
+                    }))}
+                    placeholder="Enter comma separated values"
+                    setTags={(tags) => {
+                      form.setValue(
+                        "tags",
+                        // @ts-ignore IDK why is this giving error :P
+                        tags.map((t) => t.text.replaceAll(" ", "-"))
+                      );
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button disabled={isPending} type="submit">
-            Save
+            {action === "update" ? "Save Changes" : "Create Event"}
           </Button>
         </form>
       </div>

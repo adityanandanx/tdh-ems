@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
-import SearchBar from "./SearchBar";
+import SearchBar from "../../../components/specific/search-bar";
 
 type Props = {
   searchParams: {
@@ -31,7 +31,7 @@ const AdminDashboard = async ({
   let events: EventsRow[];
 
   if (search) {
-    events = await searchEvents(search, pageNum, 10);
+    events = await searchEvents(search, "title", pageNum, 10);
   } else {
     events = await getEvents(pageNum, 10);
   }
