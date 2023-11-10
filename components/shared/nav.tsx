@@ -37,7 +37,7 @@ const Nav = async (props: Props) => {
           )}
           <div className="flex gap-1">
             <ThemeDropdown />
-            <ProfileCardDialog />
+            {user ? <ProfileCardDialog /> : null}
           </div>
         </div>
       </nav>

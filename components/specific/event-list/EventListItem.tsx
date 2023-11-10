@@ -11,7 +11,7 @@ import type { EventsRow } from "@/lib/dbTypes";
 import { Table, TableHeader, TableRow } from "@/components/ui/table";
 import { format } from "date-fns";
 import useNavHeight from "@/hooks/useNavHeight";
-import { formatTimeStamp } from "@/lib/utils";
+import { cn, formatTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { getCoverImageUrlFromName } from "@/lib/public/utils";
@@ -24,7 +24,10 @@ const EventListItem = ({ event }: Props) => {
   const navHeight = useNavHeight();
   return (
     <Card
-      className="relative group max-w-sm w-full snap-center shrink-0"
+      className={cn(
+        "relative group max-w-sm w-full snap-center shrink-0",
+        event.published ? "" : "opacity-50"
+      )}
       style={{ height: window.innerHeight - navHeight - 32 }}
     >
       {event.cover_image_url ? (

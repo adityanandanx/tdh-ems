@@ -12,6 +12,7 @@ const eventSchema = z.object({
   event_start: dateSchema,
   event_end: dateSchema,
   cover_image_url: z.string().nullable(),
+  published: z.boolean().optional(),
 });
 
 export { eventSchema };

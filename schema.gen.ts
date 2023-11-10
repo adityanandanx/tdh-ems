@@ -42,6 +42,7 @@ export interface Database {
           event_end: string | null
           event_start: string | null
           id: number
+          published: boolean
           registration_end: string | null
           registration_start: string | null
           title: string
@@ -54,6 +55,7 @@ export interface Database {
           event_end?: string | null
           event_start?: string | null
           id?: number
+          published?: boolean
           registration_end?: string | null
           registration_start?: string | null
           title: string
@@ -66,6 +68,7 @@ export interface Database {
           event_end?: string | null
           event_start?: string | null
           id?: number
+          published?: boolean
           registration_end?: string | null
           registration_start?: string | null
           title?: string

@@ -16,9 +16,11 @@ const getSupabase = () => {
           return cookieStore.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
+          "use server";
           cookieStore.set({ name, value, ...options });
         },
         remove(name: string, options: CookieOptions) {
+          "use server";
           cookieStore.delete({ name, ...options });
         },
       },

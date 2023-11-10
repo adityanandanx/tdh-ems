@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,6 +28,7 @@ import { cn, formatTimeStamp } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { redirect } from "next/navigation";
+import { Switch } from "@/components/ui/switch";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -45,6 +47,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
       event_start: null,
       registration_end: null,
       registration_start: null,
+      published: undefined,
       ...defaultValues,
     },
   });
@@ -58,7 +61,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
         break;
       case "create":
         startTransition(async () => {
-          const id = await createEvent(values);
+          const id = await createEvent({ ...values, published: false });
           redirect(`/dashboard/e/event/${id}`);
         });
         break;
@@ -283,6 +286,27 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
               )}
             />
           </fieldset>
+
+          <FormField
+            control={form.control}
+            name="published"
+            render={({ field }) => (
+              <FormItem className="flex flex-1 justify-between items-center border rounded-lg p-5">
+                <div className="">
+                  <FormLabel className="text-base">Published</FormLabel>
+                  <FormDescription>
+                    Make event publically available and allow registrations
+                  </FormDescription>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value || undefined}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
           <Button disabled={isPending} type="submit">
             Save

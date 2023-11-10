@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { EventsRow } from "@/lib/dbTypes";
 import { getEvents, searchEvents } from "@/lib/public/actions";
 import { getCoverImageUrlFromName } from "@/lib/public/utils";
-import { formatTimeStamp } from "@/lib/utils";
+import { cn, formatTimeStamp } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, ImageIcon, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,13 +49,16 @@ const AdminDashboard = async ({
         {events.map((event) => (
           <Link
             href={`/dashboard/e/event/${event.id}`}
-            className="overflow-hidden"
+            className={cn(
+              `overflow-hidden`,
+              event.published ? "" : "opacity-50"
+            )}
           >
             <Card key={event.id} className="w-full h-full">
               {event.cover_image_url ? (
                 <Image
-                  width={256}
-                  height={256}
+                  width={300}
+                  height={128}
                   className="h-32 object-cover w-full rounded-md shadow-lg shadow-primary-foreground/50"
                   src={getCoverImageUrlFromName(
                     event.id,
