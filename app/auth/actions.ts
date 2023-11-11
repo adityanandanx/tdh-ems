@@ -17,7 +17,7 @@ export const handleSignUp = async (
     email,
     password,
   });
-  if (error) throw new Error(error.message);
+  if (error) return { message: error.message, status: error.status };
   revalidatePath("/", "layout");
   if (toRegister) {
     registerForEvent(toRegister);
@@ -36,7 +36,7 @@ export const handleLogin = async (
     email,
     password,
   });
-  if (error) throw new Error(error.message);
+  if (error) return { message: error.message, status: error.status };
   revalidatePath("/", "layout");
   if (toRegister) {
     registerForEvent(toRegister);

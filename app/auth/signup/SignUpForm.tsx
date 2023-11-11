@@ -18,11 +18,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useSearchParams } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {};
 
 const SignUpForm = ({}: Props) => {
   const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const searchParams = useSearchParams();
   const toRegister = searchParams.get("register");
@@ -32,7 +34,10 @@ const SignUpForm = ({}: Props) => {
   });
 
   function onSubmit(values: z.infer<typeof signUpFormSchema>) {
-    startTransition(() => handleSignUp(values, toRegister));
+    startTransition(async () => {
+      const error = await handleSignUp(values, toRegister);
+      if (error) toast({ title: error.message, variant: "destructive" });
+    });
   }
 
   return (
