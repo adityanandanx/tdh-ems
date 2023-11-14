@@ -3,6 +3,13 @@ CREATE trigger on_auth_user_created
   AFTER INSERT ON auth.users
   for each ROW EXECUTE PROCEDURE handle_new_user();
 
+-- Create clubs
+INSERT INTO public.clubs (name, insta, linkedin) 
+VALUES 
+('TDH - The Designnovation Hub', 'https://www.instagram.com/tdhgeu/', 'https://www.linkedin.com/company/thedesignnovationhub/'),
+('IEEE', null, null),
+('ACM', null, null);
+
 -- Create admin
 INSERT INTO
     auth.users (
@@ -44,10 +51,13 @@ INSERT INTO
     );
 
 UPDATE public.users
-SET role = 'ADMIN'
+SET role = 'ADMIN', club_id = 1
 WHERE id = (
   SELECT id FROM auth.users WHERE email = 'admin@tdh.com'
 );
+
+UPDATE public.users
+SET club_id = 1;
 
 -- Insert placeholder data into the "events" table with each admin as the owner
 -- Insert placeholder data into the "events" table with each admin as the owner
@@ -158,10 +168,3 @@ SELECT
   END AS event_id
 FROM public.users u
 LIMIT 10;
-
--- Insert more real-life data into the "events" table
--- INSERT INTO public.events (title, registration_start, registration_end, event_start, event_end, venue, "desc", cover_image_url, published, owner, tags)
--- VALUES 
---   ('Hackathon 2024', '2024-03-01', '2024-03-10', '2024-03-15', '2024-03-20', 'Tech Hub', 'Annual coding competition', 'hackathon_image.jpg', true, 'e4b5b5bd-dfc2-415d-947a-3627d1016a6d', ARRAY['hackathon', 'coding']),
---   ('Food Festival', '2024-05-01', '2024-05-10', '2024-05-15', '2024-05-20', 'Downtown Square', 'Celebration of local cuisines', 'food_festival_image.jpg', true, 'e4b5b5bd-dfc2-415d-947a-3627d1016a6d', ARRAY['food', 'festival']),
---   ('Fitness Challenge', '2024-07-01', '2024-07-10', '2024-07-15', '2024-07-20', 'City Gym', 'Get fit and have fun together', 'fitness_challenge_image.jpg', false, 'e4b5b5bd-dfc2-415d-947a-3627d1016a6d', ARRAY['fitness', 'challenge']);
