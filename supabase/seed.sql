@@ -60,8 +60,8 @@ SELECT
   current_timestamp + interval '20 days' * (row_number() over ()) as event_end,
   'Venue ' || row_number() over () as venue,
   'Description ' || row_number() over () as "desc",
-  'image_url_' || (row_number() over ()) || '.jpg' as cover_image_url,
-  row_number() over () % 2 = 0 as published,
+  null,
+  (random() > 0.5) as published,
   u.id as owner,
   ARRAY['tag' || (row_number() over ())] as tags
 FROM public.users u, generate_series(1,20) -- Adjust the number of events per admin as needed

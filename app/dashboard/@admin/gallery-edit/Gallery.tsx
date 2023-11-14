@@ -24,7 +24,7 @@ const Gallery = async ({ eventId }: Props) => {
       )}
       <div className="flex flex-wrap flex-row gap-2 py-4">
         {imageURLs.map((u) => (
-          <GalleryImage eventId={eventId} url={u} />
+          <GalleryImage key={u} eventId={eventId} url={u} />
         ))}
       </div>
       <UploadDropZone eventId={eventId} />

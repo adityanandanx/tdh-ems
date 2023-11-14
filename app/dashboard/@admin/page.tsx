@@ -49,6 +49,7 @@ const AdminDashboard = async ({
         {events.map((event) => (
           <Link
             href={`/dashboard/e/event/${event.id}`}
+            key={event.id}
             className={cn(
               `overflow-hidden`,
               event.published ? "" : "opacity-50"

@@ -13,6 +13,8 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
+import { useToast } from "@/components/ui/use-toast";
+import useActionTransition from "@/hooks/useActionTransition";
 
 type Props = {
   eventId: string;
@@ -20,7 +22,10 @@ type Props = {
 };
 
 const GalleryImage = ({ eventId, url }: Props) => {
-  const [isPending, startTransition] = useTransition();
+  const setEventCoverImageAction = useActionTransition(setEventCoverImage);
+  const deleteImageAction = useActionTransition(deleteImageFromGallery);
+  const isPending =
+    setEventCoverImageAction.isPending || deleteImageAction.isPending;
 
   return (
     <ContextMenu>
@@ -45,16 +50,12 @@ const GalleryImage = ({ eventId, url }: Props) => {
       </ContextMenuTrigger>
       <ContextMenuContent className="min-w-[128px]">
         <ContextMenuItem
-          onClick={() =>
-            startTransition(() => setEventCoverImage(eventId, url))
-          }
+          onClick={() => setEventCoverImageAction.runAction(eventId, url)}
         >
           <ImageIcon size={20} /> Set as cover
         </ContextMenuItem>
         <ContextMenuItem
-          onClick={() =>
-            startTransition(() => deleteImageFromGallery(eventId, url))
-          }
+          onClick={() => () => deleteImageAction.runAction(eventId, url)}
         >
           <Trash2Icon size={20} /> Delete
         </ContextMenuItem>
