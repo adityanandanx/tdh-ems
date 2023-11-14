@@ -1,7 +1,8 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ThemeProvider } from "next-themes";
+import dynamic from "next/dynamic";
 import React, { ReactNode } from "react";
+const ThemeProvider = dynamic(() => import("./theme-provider"), { ssr: false });
 
 type Props = {
   children: ReactNode;
