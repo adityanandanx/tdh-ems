@@ -96,7 +96,11 @@ const EventListItem = ({ event }: Props) => {
           <p className="text-xs overflow-hidden line-clamp-2">{event.desc}</p>
           <div className="flex flex-wrap gap-1 leading-none my-2 text-xs">
             {event.tags.map((tag) => (
-              <Link href={getSearchURLByTag(tag)} className="hover:underline">
+              <Link
+                key={tag}
+                href={getSearchURLByTag(tag)}
+                className="hover:underline"
+              >
                 #{tag}
               </Link>
             ))}

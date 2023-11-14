@@ -27,9 +27,11 @@ import {
 import { cn, formatTimeStamp } from "@/lib/utils";
 import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import { redirect } from "next/navigation";
 import { Switch } from "@/components/ui/switch";
 import { TagInput } from "@/components/ui/tag-input";
+import { useToast } from "@/components/ui/use-toast";
+import useActionTransition from "@/hooks/useActionTransition";
+import { useRouter } from "next/navigation";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -37,7 +39,10 @@ type Props = {
 };
 
 const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
+  const updateEventAction = useActionTransition(updateEvent);
+  const createEventAction = useActionTransition(createEvent);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof eventSchema>>({
     resolver: zodResolver(eventSchema),
@@ -54,18 +59,19 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof eventSchema>) {
+  async function onSubmit(values: z.infer<typeof eventSchema>) {
     console.log(values);
     switch (action) {
       case "update":
         if (!defaultValues?.id) throw new Error("No ID for event update");
-        startTransition(() => updateEvent({ id: defaultValues.id, ...values }));
+        updateEventAction.runAction({ id: defaultValues.id, ...values });
         break;
       case "create":
-        startTransition(async () => {
-          const id = await createEvent({ ...values });
-          redirect(`/dashboard/e/event/${id}`);
-        });
+        const id = await createEventAction.runAction({ ...values });
+        console.log(id);
+        router.push(`event/${id}`);
+
+        // redirect(`/dashboard/e/${id}`);
         break;
     }
   }
@@ -344,7 +350,12 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
             )}
           />
 
-          <Button disabled={isPending} type="submit">
+          <Button
+            disabled={
+              updateEventAction.isPending || createEventAction.isPending
+            }
+            type="submit"
+          >
             {action === "update" ? "Save Changes" : "Create Event"}
           </Button>
         </form>

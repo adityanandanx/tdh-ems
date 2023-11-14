@@ -1,6 +1,7 @@
 "use client";
 import { uploadImageToGallery } from "@/app/dashboard/@admin/actions";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import React, { FormEvent, useState, useTransition } from "react";
 import { useDropzone } from "react-dropzone";
@@ -30,7 +31,8 @@ const UploadDropZone = ({ eventId }: Props) => {
       fdata.append("image", file);
       console.log(fdata.get("image"));
       startTransition(async () => {
-        await uploadImageToGallery(eventId, fdata);
+        const { error } = await uploadImageToGallery(eventId, fdata);
+
         setFiles((f) => f.filter((p) => p !== file));
       });
     });
@@ -42,7 +44,7 @@ const UploadDropZone = ({ eventId }: Props) => {
         <h1 className="mt-5 text-lg">Select Images</h1>
         <div className="flex flex-wrap gap-2 p-2">
           {files.map((file) => (
-            <div className="relative group h-32">
+            <div key={file.name} className="relative group h-32">
               <img
                 onClick={() => setFiles((f) => f.filter((p) => p !== file))}
                 className="h-full w-auto rounded cursor-pointer group-hover:opacity-50 transition-opacity"
