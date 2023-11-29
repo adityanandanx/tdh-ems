@@ -13,22 +13,26 @@ import { format } from "date-fns";
 import useNavHeight from "@/hooks/useNavHeight";
 import { cn, formatTimeStamp } from "@/lib/utils";
 import Image from "next/image";
-import { ImageIcon } from "lucide-react";
+import { CheckIcon, ImageIcon } from "lucide-react";
 import { getGalleryImageUrlFromName } from "@/lib/public/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { registerForEvent } from "./actions";
+import useActionTransition from "@/hooks/useActionTransition";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   event: EventsRow;
+  registered?: boolean;
 };
 
-const EventListItem = ({ event }: Props) => {
-  const [isPending, startTransition] = useTransition();
+const EventListItem = ({ event, registered = false }: Props) => {
+  const registerAction = useActionTransition(registerForEvent);
   const navHeight = useNavHeight();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
   const getSearchURLByTag = (tag: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -37,7 +41,8 @@ const EventListItem = ({ event }: Props) => {
   };
 
   const handleRegister = () => {
-    startTransition(() => registerForEvent(event.id.toString()));
+    registerAction.runAction(event.id.toString());
+    queryClient.invalidateQueries({ queryKey: ["events", "registered"] });
   };
 
   return (
@@ -76,13 +81,19 @@ const EventListItem = ({ event }: Props) => {
           new Date() > new Date(event.registration_start) ? (
             <div className="flex flex-col text-center">
               <Button
-                disabled={isPending}
+                disabled={registered || registerAction.isPending}
                 onClick={handleRegister}
                 className="w-fit"
                 size={"sm"}
                 variant={"default"}
               >
-                Register
+                {registered ? (
+                  <>
+                    Registered <CheckIcon size={16} />
+                  </>
+                ) : (
+                  "Register"
+                )}
               </Button>
               {/* <span className="text-xs">
                 {formatTimeStamp(event.registration_end)}

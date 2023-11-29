@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import EventListItem from "./EventListItem";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import InfiniteLoading from "./infinte-loading";
@@ -21,14 +21,15 @@ const EventList = ({}: Props) => {
     return { events, pageParam };
   };
 
-  // const fetchOwnEvents = async () => {
-  //   return await getUserRegisteredEvents();
-  // };
+  const fetchOwnEvents = async () => {
+    const events = await getUserRegisteredEvents();
+    return events;
+  };
 
-  // const registeredEventsQuery = useQuery({
-  //   queryKey: ["events"],
-  //   queryFn: fetchOwnEvents,
-  // });
+  const registeredEventsQuery = useQuery({
+    queryKey: ["events", "registered"],
+    queryFn: fetchOwnEvents,
+  });
 
   const navHeight = useNavHeight();
   const viewHeight = useViewportHeight();
@@ -37,21 +38,24 @@ const EventList = ({}: Props) => {
     queryKey: ["events"],
     queryFn: fetchEvents,
     initialPageParam: 0,
-    // enabled: !!registeredEventsQuery.data,
+    enabled: !!registeredEventsQuery.data,
     getNextPageParam: (lastPage, pages) => lastPage.pageParam + 1,
   });
 
   const { data, error, status } = eventsQuery;
 
-  // const determineHasRegistered = (eventId: string | number) => {
-  //   if (!registeredEventsQuery.data) return false;
-  //   for (const e of registeredEventsQuery.data) {
-  //     if (e.id === eventId) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
+  const determineHasRegistered = useCallback(
+    (eventId: string | number) => {
+      if (!registeredEventsQuery.data) return false;
+      for (const e of registeredEventsQuery.data) {
+        if (e.id === eventId) {
+          return true;
+        }
+      }
+      return false;
+    },
+    [registeredEventsQuery.data]
+  );
 
   return (
     <div
@@ -64,7 +68,11 @@ const EventList = ({}: Props) => {
       ) : (
         data.pages.map((group, i) =>
           group.events.map((event) => (
-            <EventListItem key={event.id} event={event} />
+            <EventListItem
+              registered={determineHasRegistered(event.id)}
+              key={event.id}
+              event={event}
+            />
           ))
         )
       )}
