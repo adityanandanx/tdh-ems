@@ -21,6 +21,8 @@ jobs:
       - uses: supabase/setup-cli@v1
         with:
           version: latest
-
+      - run: echo "$SUPABASE_ACCESS_TOKEN"
+      - run: echo "$SUPABASE_DB_PASSWORD"
+      - run: echo "$SUPABASE_PROJECT_ID"
       - run: supabase link --project-ref "$SUPABASE_PROJECT_ID"
       - run: supabase db push
