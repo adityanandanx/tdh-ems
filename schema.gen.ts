@@ -34,6 +34,30 @@ export interface Database {
   }
   public: {
     Tables: {
+      clubs: {
+        Row: {
+          created_at: string
+          id: number
+          insta: string | null
+          linkedin: string | null
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          insta?: string | null
+          linkedin?: string | null
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          insta?: string | null
+          linkedin?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           cover_image_url: string | null
@@ -125,24 +149,33 @@ export interface Database {
       }
       users: {
         Row: {
+          club_id: number | null
           created_at: string
           full_name: string | null
           id: string
           role: Database["public"]["Enums"]["user_role"]
         }
         Insert: {
+          club_id?: number | null
           created_at?: string
           full_name?: string | null
           id: string
           role?: Database["public"]["Enums"]["user_role"]
         }
         Update: {
+          club_id?: number | null
           created_at?: string
           full_name?: string | null
           id?: string
           role?: Database["public"]["Enums"]["user_role"]
         }
         Relationships: [
+          {
+            foreignKeyName: "users_club_id_fkey"
+            columns: ["club_id"]
+            referencedRelation: "clubs"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "users_id_fkey"
             columns: ["id"]

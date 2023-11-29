@@ -1,7 +1,7 @@
 "use server";
 import { cache } from "react";
 import { getSupabase } from "./supabase";
-import { EventsRow } from "./dbTypes";
+import { EventsColumn, EventsRow } from "./dbTypes";
 
 const getUser = cache(async () => {
   const supabase = getSupabase();

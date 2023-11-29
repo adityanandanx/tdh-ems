@@ -23,13 +23,17 @@ export const editAvatar = async (fdata: FormData) => {
   revalidatePath("/dashboard");
 };
 
-export const editDetails = async (newdata: Partial<UsersRow>) => {
+export const editDetails = async (
+  newdata: Omit<Partial<UsersRow>, "role" | "club_id">
+) => {
   const supabase = getSupabase();
   const user = await getUser();
+  console.log(newdata);
+
   if (!user) throw new Error("No user");
   const { error } = await supabase
     .from("users")
-    .update({ ...newdata, role: undefined })
+    .update({ ...newdata, role: "ADMIN" })
     .eq("id", user.id);
   if (error) throw new Error(error.message);
   revalidatePath("/dashboard");

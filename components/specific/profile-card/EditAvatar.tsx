@@ -102,7 +102,7 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
                   <p>Drop the image here ...</p>
                 ) : (
                   <p className="max-w-xs text-center">
-                    Drag 'n' drop an image here, or click to select image
+                    Drag and drop an image here, or click to select image
                   </p>
                 )}
               </div>
