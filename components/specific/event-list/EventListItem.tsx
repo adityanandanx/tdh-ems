@@ -48,7 +48,7 @@ const EventListItem = ({ event, registered = false }: Props) => {
   return (
     <Card
       className={cn(
-        "relative group w-auto aspect-9/16 snap-center shrink-0 z-0 flex flex-col justify-end overflow-hidden",
+        "relative group w-full max-w-md snap-center shrink-0 z-0 flex flex-col justify-end overflow-hidden",
         event.published ? "" : "hidden"
       )}
       style={{ height: window.innerHeight - navHeight - 32 }}
@@ -69,7 +69,7 @@ const EventListItem = ({ event, registered = false }: Props) => {
           />
         </>
       )}
-      <div className="max-w-sm w-full z-20 bg-gradient-to-t from-card to-transparent">
+      <div className="w-full z-20 bg-gradient-to-t from-card to-transparent">
         <CardHeader className="pb-2 pt-20">
           <div>
             <CardTitle className="text-xl">{event.title}</CardTitle>
