@@ -51,10 +51,10 @@ const Home = () => {
               Join our community
             </h1>
             <p>
-              "Unlock your potential and join us on a journey of knowledge,
+              Unlock your potential and join us on a journey of knowledge,
               growth, and inspiration. Our seminars are designed to empower you
-              with the tools, strategies, and insights needed to thrive in
-              today's ever-changing world. Don't miss the opportunity.
+              with the tools, strategies, and insights needed to thrive in today
+              {"'"}s ever-changing world. Don{"'"}t miss the opportunity.
             </p>
 
             <Link
