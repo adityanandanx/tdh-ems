@@ -20,6 +20,7 @@ const NavLinks = ({ children }: Props) => {
   return (
     <div className="block">
       <div
+        onClick={() => setOpen(false)}
         className={cn(
           "fixed flex flex-col -z-20 right-0 left-0 top-full opacity-100 p-10 bg-background shadow-xl gap-5 md:static md:flex-row md:p-0 md:items-center transform transition-[transform,opacity] md:translate-y-0",
           open
