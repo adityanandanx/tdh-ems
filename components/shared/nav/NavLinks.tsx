@@ -22,7 +22,7 @@ const NavLinks = ({ children }: Props) => {
       <div
         onClick={() => setOpen(false)}
         className={cn(
-          "fixed flex flex-col -z-20 right-0 left-0 top-full opacity-100 p-10 bg-background shadow-xl md:shadow-none gap-5 md:static md:flex-row md:p-0 md:items-center transform transition-[transform,opacity] md:translate-y-0",
+          "fixed flex flex-col -z-20 right-0 left-0 top-full opacity-100 p-10 bg-background md:bg-transparent shadow-xl md:shadow-none gap-5 md:static md:flex-row md:p-0 md:items-center transform transition-[transform,opacity] md:translate-y-0",
           open
             ? "translate-y-0 opacity-100"
             : "-translate-y-1/2 pointer-events-none opacity-0 md:opacity-100 md:pointer-events-auto"
