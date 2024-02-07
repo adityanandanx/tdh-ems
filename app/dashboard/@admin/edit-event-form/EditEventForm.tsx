@@ -32,6 +32,7 @@ import { TagInput } from "@/components/ui/tag-input";
 import { useToast } from "@/components/ui/use-toast";
 import useActionTransition from "@/hooks/useActionTransition";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -43,6 +44,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   const updateEventAction = useActionTransition(updateEvent);
   const createEventAction = useActionTransition(createEvent);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof eventSchema>>({
     resolver: zodResolver(eventSchema),
@@ -74,6 +76,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
         // redirect(`/dashboard/e/${id}`);
         break;
     }
+    queryClient.invalidateQueries({ queryKey: ["events"] });
   }
 
   const onChangeDateToString = (
