@@ -4,6 +4,8 @@ import { Button } from "../ui/button";
 import ThemeDropdown from "../ui/theme-dropdown";
 import { ProfileCardDialog } from "../specific/profile-card";
 import { getUser } from "@/lib/userActions";
+import Image from "next/image";
+import logoImg from "./assets/logo.png";
 
 type Props = {};
 
@@ -12,8 +14,15 @@ const Nav = async (props: Props) => {
   return (
     <header className="px-5 py-2 border-b sticky top-0 w-full bg-background/25 backdrop-blur-md z-50">
       <nav className="max-w-screen-xl mx-auto flex justify-between items-center">
-        <Link href={"/"}>
-          <h1 className="font-bold text-xl">EvE</h1>
+        <Link href={"/"} className="flex items-center gap-4">
+          <Image
+            src={logoImg}
+            alt="TDH logo"
+            className="h-12 w-auto invert-0 dark:invert"
+          />
+          <h1 className="font-thin text-base leading-none">
+            The Designnovation Hub
+          </h1>
         </Link>
         <div className="flex gap-5 items-center">
           <Link href="/events">Events</Link>

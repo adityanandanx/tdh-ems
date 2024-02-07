@@ -17,7 +17,7 @@ const EventList = ({}: Props) => {
   const fetchEvents = async ({ pageParam = 0 }) => {
     let events: EventsRow[];
 
-    events = await getEvents(pageParam, 3);
+    events = await getEvents(pageParam, 3, false);
     return { events, pageParam };
   };
 

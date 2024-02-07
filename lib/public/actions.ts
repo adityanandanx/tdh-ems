@@ -55,7 +55,6 @@ const getEvents = async (
   const { data, error } = await supabase
     .from("events")
     .select()
-    .eq("published", onlyPublished)
     .range(page * limit, page * limit + limit - 1)
     .order("registration_end", { ascending: true, nullsFirst: false });
   if (error) throw new Error(error.message);
