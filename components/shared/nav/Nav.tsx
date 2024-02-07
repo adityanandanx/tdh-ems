@@ -1,11 +1,12 @@
 import Link from "next/link";
 import React from "react";
-import { Button } from "../ui/button";
-import ThemeDropdown from "../ui/theme-dropdown";
-import { ProfileCardDialog } from "../specific/profile-card";
+import { Button } from "../../ui/button";
+import ThemeDropdown from "../../ui/theme-dropdown";
+import { ProfileCardDialog } from "../../specific/profile-card";
 import { getUser } from "@/lib/userActions";
 import Image from "next/image";
-import logoImg from "./assets/logo.png";
+import logoImg from "../assets/logo.png";
+import NavLinks from "./NavLinks";
 
 type Props = {};
 
@@ -24,7 +25,7 @@ const Nav = async (props: Props) => {
             The Designnovation Hub
           </h1>
         </Link>
-        <div className="flex gap-5 items-center">
+        <NavLinks>
           <Link href="/events">Events</Link>
           <Link href="/">About</Link>
           <Link href="/">Contact</Link>
@@ -48,7 +49,7 @@ const Nav = async (props: Props) => {
             <ThemeDropdown />
             {user ? <ProfileCardDialog /> : null}
           </div>
-        </div>
+        </NavLinks>
       </nav>
     </header>
   );
