@@ -10,8 +10,10 @@ import { HideOnPaths } from "@/components/specific/hide-on-paths";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Eve - Event management system for student clubs",
-  description: "Event management system for student clubs",
+  title: "TDH - The Designnovation Hub",
+  description:
+    "Innovation and impact through design thinking, software development and research.",
+  keywords: ["events", "clubs", "graphic era", "tdh", "innovation", "design"],
 };
 
 export default async function RootLayout({
