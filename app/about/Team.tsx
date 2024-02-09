@@ -31,7 +31,7 @@ const Team = () => {
         <Tabs defaultValue="tech">
           <TabsList>
             {TEAMS.map((team) => (
-              <TabsTrigger className="capitalize" value={team}>
+              <TabsTrigger key={team} className="capitalize" value={team}>
                 {team}
               </TabsTrigger>
             ))}
