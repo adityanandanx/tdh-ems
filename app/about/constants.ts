@@ -19,10 +19,8 @@ export const teamData: TeamMember[] = [
     team: "tech",
     imgPath: "/team/dev.jpg",
     social: {
-      website: "https://adityanandan.vercel.app/",
-      github: "https://github.com/iMADi-ARCH/",
-      linkedin: "https://www.linkedin.com/in/aditya-nandan-thats-it",
-      twitter: "https://twitter.com/iMADi69235681",
+      linkedin: "https://www.linkedin.com/in/devaditya-singh-638990247",
+      insta: "https://www.instagram.com/devadixtya",
     },
   },
   {
