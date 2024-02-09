@@ -1,3 +1,4 @@
+"use server";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { type EmailOtpType } from "@supabase/supabase-js";
 import { cookies } from "next/headers";

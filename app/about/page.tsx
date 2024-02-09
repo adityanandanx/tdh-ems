@@ -1,147 +1,45 @@
 import React from "react";
+import Team from "./Team";
+import teamImg from "./assets/team.jpg";
+import Image from "next/image";
 
-type Props = {};
-
-const AboutPage = (props: Props) => {
+const About = () => {
   return (
-    <main>
-      <section className="min-h-screen">
-        <div className="max-w-screen-xl mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          beatae. Cumque, reprehenderit odio delectus maiores beatae tempore
-          nesciunt ratione itaque dolore repellat mollitia modi molestias culpa
-          saepe, consequuntur nisi, nam rem excepturi. Officiis voluptates saepe
-          voluptate possimus est corporis et, ipsum non optio, dicta distinctio
-          quidem. Porro, nemo tempora vitae repellendus quaerat voluptates
-          doloremque illo minus fugiat architecto blanditiis sit deleniti iste
-          amet quas eos ab. Architecto tempora maiores aspernatur ipsam, quo
-          illum alias nihil veniam modi temporibus, ipsa quaerat pariatur
-          debitis? Quisquam eius aliquam temporibus natus minus quidem labore
-          delectus officiis eveniet aliquid. Assumenda provident dignissimos
-          alias ab, at dolorum! Quaerat nemo doloremque voluptas non obcaecati
-          in modi delectus, quod omnis error enim ratione, vitae at, assumenda
-          consequatur veritatis expedita blanditiis ipsum provident sed. Impedit
-          temporibus quae nisi qui? Officia dignissimos aliquam dolore nemo
-          ratione tempore nostrum qui. Facilis exercitationem, eum, minima
-          temporibus minus non magni rem incidunt beatae natus laborum et
-          pariatur nihil, est eius ducimus? Accusantium sint eius quas aut animi
-          consectetur, eveniet magnam voluptatibus ullam cum, neque perspiciatis
-          voluptatem sequi ducimus impedit numquam facere iusto molestiae
-          assumenda distinctio. Quisquam, obcaecati aspernatur. Deleniti
-          veritatis esse praesentium harum voluptatem adipisci perspiciatis
-          earum eligendi. Aliquam itaque labore voluptatum impedit!
+    <>
+      <section className="relative px-5 flex flex-col items-center justify-center text-center py-64 gap-5 overflow-hidden">
+        <Image
+          src={teamImg}
+          alt="Team image"
+          priority
+          className="absolute w-full h-full left-0 top-0 object-cover object-center"
+        />
+      </section>
+
+      <section className="px-5 flex flex-col items-center justify-center text-left py-32 gap-5">
+        <div className="max-w-screen-xl mx-auto flex flex-col gap-5 items-start justify-center">
+          <h1 className="relative text-4xl font-semibold">
+            About Us
+            <div className="bg-primary h-1 absolute left-0 right-0"></div>
+          </h1>
+          <p>
+            The Designnovation Hub has the vision to create impactful
+            technological innovations and inspire students to innovate and bring
+            fresh perspectives to real-world problems.The club aims to promote
+            design thinking and creativity, collaborate with other clubs in
+            various fields, and contribute to the growth of society. The mission
+            includes providing knowledge about design thinking, conducting
+            workshops and sessions, facilitating team projects. Lorem ipsum
+            dolor sit amet consectetur adipisicing elit. Laudantium cupiditate
+            hic nemo odio nisi veniam libero consequatur, doloribus cumque
+            praesentium. Lorem ipsum dolor sit amet consectetur adipisicing
+            elit. Harum cupiditate laboriosam similique? Ea ullam non nemo modi
+            autem excepturi eos.
+          </p>
         </div>
       </section>
-      <section className="min-h-screen">
-        <div className="max-w-screen-xl mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          beatae. Cumque, reprehenderit odio delectus maiores beatae tempore
-          nesciunt ratione itaque dolore repellat mollitia modi molestias culpa
-          saepe, consequuntur nisi, nam rem excepturi. Officiis voluptates saepe
-          voluptate possimus est corporis et, ipsum non optio, dicta distinctio
-          quidem. Porro, nemo tempora vitae repellendus quaerat voluptates
-          doloremque illo minus fugiat architecto blanditiis sit deleniti iste
-          amet quas eos ab. Architecto tempora maiores aspernatur ipsam, quo
-          illum alias nihil veniam modi temporibus, ipsa quaerat pariatur
-          debitis? Quisquam eius aliquam temporibus natus minus quidem labore
-          delectus officiis eveniet aliquid. Assumenda provident dignissimos
-          alias ab, at dolorum! Quaerat nemo doloremque voluptas non obcaecati
-          in modi delectus, quod omnis error enim ratione, vitae at, assumenda
-          consequatur veritatis expedita blanditiis ipsum provident sed. Impedit
-          temporibus quae nisi qui? Officia dignissimos aliquam dolore nemo
-          ratione tempore nostrum qui. Facilis exercitationem, eum, minima
-          temporibus minus non magni rem incidunt beatae natus laborum et
-          pariatur nihil, est eius ducimus? Accusantium sint eius quas aut animi
-          consectetur, eveniet magnam voluptatibus ullam cum, neque perspiciatis
-          voluptatem sequi ducimus impedit numquam facere iusto molestiae
-          assumenda distinctio. Quisquam, obcaecati aspernatur. Deleniti
-          veritatis esse praesentium harum voluptatem adipisci perspiciatis
-          earum eligendi. Aliquam itaque labore voluptatum impedit!
-        </div>
-      </section>
-      <section className="min-h-screen">
-        <div className="max-w-screen-xl mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          beatae. Cumque, reprehenderit odio delectus maiores beatae tempore
-          nesciunt ratione itaque dolore repellat mollitia modi molestias culpa
-          saepe, consequuntur nisi, nam rem excepturi. Officiis voluptates saepe
-          voluptate possimus est corporis et, ipsum non optio, dicta distinctio
-          quidem. Porro, nemo tempora vitae repellendus quaerat voluptates
-          doloremque illo minus fugiat architecto blanditiis sit deleniti iste
-          amet quas eos ab. Architecto tempora maiores aspernatur ipsam, quo
-          illum alias nihil veniam modi temporibus, ipsa quaerat pariatur
-          debitis? Quisquam eius aliquam temporibus natus minus quidem labore
-          delectus officiis eveniet aliquid. Assumenda provident dignissimos
-          alias ab, at dolorum! Quaerat nemo doloremque voluptas non obcaecati
-          in modi delectus, quod omnis error enim ratione, vitae at, assumenda
-          consequatur veritatis expedita blanditiis ipsum provident sed. Impedit
-          temporibus quae nisi qui? Officia dignissimos aliquam dolore nemo
-          ratione tempore nostrum qui. Facilis exercitationem, eum, minima
-          temporibus minus non magni rem incidunt beatae natus laborum et
-          pariatur nihil, est eius ducimus? Accusantium sint eius quas aut animi
-          consectetur, eveniet magnam voluptatibus ullam cum, neque perspiciatis
-          voluptatem sequi ducimus impedit numquam facere iusto molestiae
-          assumenda distinctio. Quisquam, obcaecati aspernatur. Deleniti
-          veritatis esse praesentium harum voluptatem adipisci perspiciatis
-          earum eligendi. Aliquam itaque labore voluptatum impedit!
-        </div>
-      </section>
-      <section className="min-h-screen">
-        <div className="max-w-screen-xl mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          beatae. Cumque, reprehenderit odio delectus maiores beatae tempore
-          nesciunt ratione itaque dolore repellat mollitia modi molestias culpa
-          saepe, consequuntur nisi, nam rem excepturi. Officiis voluptates saepe
-          voluptate possimus est corporis et, ipsum non optio, dicta distinctio
-          quidem. Porro, nemo tempora vitae repellendus quaerat voluptates
-          doloremque illo minus fugiat architecto blanditiis sit deleniti iste
-          amet quas eos ab. Architecto tempora maiores aspernatur ipsam, quo
-          illum alias nihil veniam modi temporibus, ipsa quaerat pariatur
-          debitis? Quisquam eius aliquam temporibus natus minus quidem labore
-          delectus officiis eveniet aliquid. Assumenda provident dignissimos
-          alias ab, at dolorum! Quaerat nemo doloremque voluptas non obcaecati
-          in modi delectus, quod omnis error enim ratione, vitae at, assumenda
-          consequatur veritatis expedita blanditiis ipsum provident sed. Impedit
-          temporibus quae nisi qui? Officia dignissimos aliquam dolore nemo
-          ratione tempore nostrum qui. Facilis exercitationem, eum, minima
-          temporibus minus non magni rem incidunt beatae natus laborum et
-          pariatur nihil, est eius ducimus? Accusantium sint eius quas aut animi
-          consectetur, eveniet magnam voluptatibus ullam cum, neque perspiciatis
-          voluptatem sequi ducimus impedit numquam facere iusto molestiae
-          assumenda distinctio. Quisquam, obcaecati aspernatur. Deleniti
-          veritatis esse praesentium harum voluptatem adipisci perspiciatis
-          earum eligendi. Aliquam itaque labore voluptatum impedit!
-        </div>
-      </section>
-      <section className="min-h-screen">
-        <div className="max-w-screen-xl mx-auto">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam,
-          beatae. Cumque, reprehenderit odio delectus maiores beatae tempore
-          nesciunt ratione itaque dolore repellat mollitia modi molestias culpa
-          saepe, consequuntur nisi, nam rem excepturi. Officiis voluptates saepe
-          voluptate possimus est corporis et, ipsum non optio, dicta distinctio
-          quidem. Porro, nemo tempora vitae repellendus quaerat voluptates
-          doloremque illo minus fugiat architecto blanditiis sit deleniti iste
-          amet quas eos ab. Architecto tempora maiores aspernatur ipsam, quo
-          illum alias nihil veniam modi temporibus, ipsa quaerat pariatur
-          debitis? Quisquam eius aliquam temporibus natus minus quidem labore
-          delectus officiis eveniet aliquid. Assumenda provident dignissimos
-          alias ab, at dolorum! Quaerat nemo doloremque voluptas non obcaecati
-          in modi delectus, quod omnis error enim ratione, vitae at, assumenda
-          consequatur veritatis expedita blanditiis ipsum provident sed. Impedit
-          temporibus quae nisi qui? Officia dignissimos aliquam dolore nemo
-          ratione tempore nostrum qui. Facilis exercitationem, eum, minima
-          temporibus minus non magni rem incidunt beatae natus laborum et
-          pariatur nihil, est eius ducimus? Accusantium sint eius quas aut animi
-          consectetur, eveniet magnam voluptatibus ullam cum, neque perspiciatis
-          voluptatem sequi ducimus impedit numquam facere iusto molestiae
-          assumenda distinctio. Quisquam, obcaecati aspernatur. Deleniti
-          veritatis esse praesentium harum voluptatem adipisci perspiciatis
-          earum eligendi. Aliquam itaque labore voluptatum impedit!
-        </div>
-      </section>
-    </main>
+      <Team />
+    </>
   );
 };
 
-export default AboutPage;
+export default About;

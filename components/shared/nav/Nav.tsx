@@ -27,7 +27,7 @@ const Nav = async (props: Props) => {
         </Link>
         <NavLinks>
           <Link href="/events">Events</Link>
-          <Link href="/">About</Link>
+          <Link href="/about">About</Link>
           <Link href="/">Contact</Link>
           {user ? (
             <Link href="/dashboard">
