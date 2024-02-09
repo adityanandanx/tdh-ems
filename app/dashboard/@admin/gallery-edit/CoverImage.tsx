@@ -1,7 +1,5 @@
-import { setEventCoverImage } from "@/app/dashboard/@admin/actions";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { getEventCoverImage } from "@/lib/public/actions";
+import { getEventCoverImage } from "@/lib/actions/events";
+import { getSupabase } from "@/lib/supabase/server";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -11,7 +9,8 @@ type Props = {
 };
 
 const CoverImage = async ({ eventId }: Props) => {
-  const cover = await getEventCoverImage(eventId);
+  const supabase = getSupabase();
+  const cover = await getEventCoverImage(supabase, eventId);
   return (
     <div className="mb-10">
       <h1 className="text-2xl font-medium">Cover</h1>

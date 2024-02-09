@@ -2,6 +2,7 @@
 import { uploadImageToGallery } from "@/app/dashboard/@admin/actions";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useSupabase } from "@/lib/supabase/client";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import React, { FormEvent, useState, useTransition } from "react";
 import { useDropzone } from "react-dropzone";
@@ -13,6 +14,7 @@ type Props = {
 const UploadDropZone = ({ eventId }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [files, setFiles] = useState<File[]>([]);
+  const supabase = useSupabase();
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
@@ -31,7 +33,7 @@ const UploadDropZone = ({ eventId }: Props) => {
       fdata.append("image", file);
       console.log(fdata.get("image"));
       startTransition(async () => {
-        const { error } = await uploadImageToGallery(eventId, fdata);
+        const { error } = await uploadImageToGallery(supabase, eventId, fdata);
 
         setFiles((f) => f.filter((p) => p !== file));
       });

@@ -1,16 +1,18 @@
 import React from "react";
 import UploadDropZone from "./UploadDropZone";
 import GalleryImage from "./GalleryImage";
-import { getEventGallery } from "@/lib/public/actions";
+import { getEventGallery } from "@/lib/actions/events";
 import CoverImage from "./CoverImage";
 import { Separator } from "@/components/ui/separator";
+import { getSupabase } from "@/lib/supabase/server";
 
 type Props = {
   eventId: string;
 };
 
 const Gallery = async ({ eventId }: Props) => {
-  const imageURLs = await getEventGallery(eventId);
+  const supabase = getSupabase();
+  const imageURLs = await getEventGallery(supabase, eventId);
   return (
     <div className="flex-1">
       <CoverImage eventId={eventId} />

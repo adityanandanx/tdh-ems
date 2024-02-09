@@ -4,17 +4,17 @@ import {
   setEventCoverImage,
 } from "@/app/dashboard/@admin/actions";
 import { cn } from "@/lib/utils";
-import { DeleteIcon, ImageIcon, Loader2Icon, Trash2Icon } from "lucide-react";
+import { ImageIcon, Loader2Icon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
-import React, { useTransition } from "react";
+import React from "react";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
-import { useToast } from "@/components/ui/use-toast";
 import useActionTransition from "@/hooks/useActionTransition";
+import { useSupabase } from "@/lib/supabase/client";
 
 type Props = {
   eventId: string;
@@ -26,6 +26,7 @@ const GalleryImage = ({ eventId, url }: Props) => {
   const deleteImageAction = useActionTransition(deleteImageFromGallery);
   const isPending =
     setEventCoverImageAction.isPending || deleteImageAction.isPending;
+  const supabase = useSupabase();
 
   return (
     <ContextMenu>
@@ -50,12 +51,15 @@ const GalleryImage = ({ eventId, url }: Props) => {
       </ContextMenuTrigger>
       <ContextMenuContent className="min-w-[128px]">
         <ContextMenuItem
-          onClick={() => setEventCoverImageAction.runAction(eventId, url)}
+          onClick={() =>
+            setEventCoverImageAction.runAction(supabase, eventId, url)
+          }
         >
           <ImageIcon size={20} /> Set as cover
         </ContextMenuItem>
         <ContextMenuItem
-          onClick={() => () => deleteImageAction.runAction(eventId, url)}
+          onClick={() => () =>
+            deleteImageAction.runAction(supabase, eventId, url)}
         >
           <Trash2Icon size={20} /> Delete
         </ContextMenuItem>
