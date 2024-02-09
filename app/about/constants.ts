@@ -15,10 +15,15 @@ export const teamData: TeamMember[] = [
     },
   },
   {
-    name: "Person 2",
+    name: "Devaditya Singh",
     team: "tech",
-    imgPath: "/team/person.jpg",
-    social: {},
+    imgPath: "/team/dev.jpg",
+    social: {
+      website: "https://adityanandan.vercel.app/",
+      github: "https://github.com/iMADi-ARCH/",
+      linkedin: "https://www.linkedin.com/in/aditya-nandan-thats-it",
+      twitter: "https://twitter.com/iMADi69235681",
+    },
   },
   {
     name: "Person 3",
