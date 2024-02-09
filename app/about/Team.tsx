@@ -8,30 +8,19 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
-import React, { ReactNode, useState } from "react";
-import { TeamMember } from "./types";
+import React from "react";
 import { TEAMS, teamData } from "./constants";
 import {
   GithubIcon,
   GlobeIcon,
   InstagramIcon,
   LinkedinIcon,
-  NetworkIcon,
   TwitterIcon,
-  XIcon,
 } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import SocialLink from "@/components/specific/social-link/SocialLink";
 
 const Team = () => {
-  const [activeTeam, setActiveTeam] = useState("core");
   return (
     <section className="px-5 flex flex-col items-center justify-center text-left py-32 gap-5">
       <div className="max-w-screen-xl w-full mx-auto flex flex-col gap-10 items-start justify-center">
@@ -107,31 +96,6 @@ const Team = () => {
         </Tabs>
       </div>
     </section>
-  );
-};
-
-const SocialLink = ({
-  name,
-  link,
-  icon,
-}: {
-  name: string;
-  link: string;
-  icon: ReactNode;
-}) => {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button size={"icon"} variant={"outline"}>
-            <Link href={link}>{icon}</Link>
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{name}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
   );
 };
 
