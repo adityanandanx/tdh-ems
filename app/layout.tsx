@@ -5,6 +5,7 @@ import { Nav } from "@/components/shared/nav/Nav";
 import Provider from "@/components/provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/shared/footer";
+import { HideOnPaths } from "@/components/specific/hide-on-paths";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,8 +29,10 @@ export default async function RootLayout({
         ></div>
         <Provider>
           <Nav />
-          {children}
-          <Footer />
+          <div className="min-h-[80vh]">{children}</div>
+          <HideOnPaths paths={["/events"]}>
+            <Footer />
+          </HideOnPaths>
           <Toaster />
         </Provider>
       </body>
