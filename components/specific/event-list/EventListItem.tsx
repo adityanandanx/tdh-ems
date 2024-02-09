@@ -6,19 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React, { useTransition } from "react";
-import type { EventsRow } from "@/lib/dbTypes";
-import { Table, TableHeader, TableRow } from "@/components/ui/table";
-import { format } from "date-fns";
+import React from "react";
+import type { EventsRow } from "@/lib/supabase/types";
 import useNavHeight from "@/hooks/useNavHeight";
 import { cn, formatTimeStamp } from "@/lib/utils";
 import Image from "next/image";
 import { CheckIcon, ImageIcon } from "lucide-react";
-import { getGalleryImageUrlFromName } from "@/lib/public/utils";
+import { getGalleryImageUrlFromName } from "@/lib/actions/utils";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { revalidateTag } from "next/cache";
+import { useSearchParams } from "next/navigation";
 import { registerForEvent } from "./actions";
 import useActionTransition from "@/hooks/useActionTransition";
 import { useQueryClient } from "@tanstack/react-query";

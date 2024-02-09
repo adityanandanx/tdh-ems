@@ -6,7 +6,6 @@ type Props = {};
 
 const Dashboard = async (props: Props) => {
   const user = await getUser();
-  const role = await getUserRole();
   if (!user) redirect("/login");
   return <div className="flex gap-5 items-start">this is main page</div>;
 };

@@ -5,10 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { EventsRow } from "@/lib/dbTypes";
-import { getEvents, searchEvents } from "@/lib/public/actions";
-import { getGalleryImageUrlFromName } from "@/lib/public/utils";
+import { EventsRow } from "@/lib/supabase/types";
+import { getEvents, searchEvents } from "@/lib/actions/events";
+import { getGalleryImageUrlFromName } from "@/lib/actions/utils";
 import { cn, formatTimeStamp } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, ImageIcon, Plus } from "lucide-react";
 import Image from "next/image";
@@ -16,6 +15,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import SearchBar from "../../../components/specific/search-bar";
+import { getSupabase } from "@/lib/supabase/server";
 
 type Props = {
   searchParams: {
@@ -29,11 +29,12 @@ const AdminDashboard = async ({
 }: Props) => {
   const pageNum = parseInt(page);
   let events: EventsRow[];
+  const supabase = getSupabase();
 
   if (search) {
-    events = await searchEvents(search, "title", pageNum, 10);
+    events = await searchEvents(supabase, search, "title", pageNum, 10);
   } else {
-    events = await getEvents(pageNum, 10);
+    events = await getEvents(supabase, pageNum, 10);
   }
 
   if (events.length === 0 && pageNum > 0) redirect(`?page=${pageNum - 1}`);

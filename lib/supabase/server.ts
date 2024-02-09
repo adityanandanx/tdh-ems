@@ -1,6 +1,6 @@
 import { Database } from "@/schema.gen";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { type cookies } from "next/headers";
+import { cookies } from "next/headers";
 
 export function createClient(cookieStore: ReturnType<typeof cookies>) {
   return createServerClient<Database>(
@@ -32,4 +32,8 @@ export function createClient(cookieStore: ReturnType<typeof cookies>) {
       },
     }
   );
+}
+
+export function getSupabase() {
+  return createClient(cookies());
 }

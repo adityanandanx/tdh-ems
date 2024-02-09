@@ -1,25 +1,22 @@
 "use server";
 
-import { EventsRow } from "@/lib/dbTypes";
-import { getEventCoverImage } from "@/lib/public/actions";
-import { createClient } from "@/lib/supabase/server";
+import { EventsRow, TypedSupabaseClient } from "@/lib/supabase/types";
+import { getEventCoverImage } from "@/lib/actions/events";
 import { ServerActionResponse } from "@/lib/types";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const getEvent = async (
+  supabase: TypedSupabaseClient,
   id: string
 ): Promise<ServerActionResponse<EventsRow>> => {
-  const supabase = createClient(cookies());
   const { data, error } = await supabase.from("events").select().eq("id", id);
   return { error: error?.message, data: data?.[0] };
 };
 
 const updateEvent = async (
+  supabase: TypedSupabaseClient,
   newdata: Partial<EventsRow> & { id: string | number }
 ): Promise<ServerActionResponse> => {
-  const supabase = createClient(cookies());
   console.log("UPDATING", newdata);
 
   const { error } = await supabase
@@ -30,9 +27,9 @@ const updateEvent = async (
 };
 
 const createEvent = async (
+  supabase: TypedSupabaseClient,
   newdata: Omit<EventsRow, "id" | "created_at" | "published" | "owner" | "tags">
 ): Promise<ServerActionResponse<number | undefined>> => {
-  const supabase = createClient(cookies());
   const { data, error } = await supabase
     .from("events")
     .insert(newdata)
@@ -42,18 +39,20 @@ const createEvent = async (
   return { error: error?.message, data: data?.[0].id };
 };
 
-const deleteEvent = async (id: string): Promise<ServerActionResponse> => {
-  const supabase = createClient(cookies());
+const deleteEvent = async (
+  supabase: TypedSupabaseClient,
+  id: string
+): Promise<ServerActionResponse> => {
   const { error } = await supabase.from("events").delete().eq("id", id);
   return { error: error?.message };
 };
 
 const uploadImageToGallery = async (
+  supabase: TypedSupabaseClient,
   eventId: string,
   fdata: FormData
 ): Promise<ServerActionResponse> => {
   const file = fdata.get("image")! as File;
-  const supabase = createClient(cookies());
   const { data, error } = await supabase.storage
     .from("event")
     .upload(
@@ -69,14 +68,14 @@ const uploadImageToGallery = async (
 };
 
 const deleteImageFromGallery = async (
+  supabase: TypedSupabaseClient,
   eventId: string,
   imageURL: string
 ): Promise<ServerActionResponse> => {
-  const supabase = createClient(cookies());
   const imgPath = imageURL.split("event/")[1];
-  const coverURL = await getEventCoverImage(eventId);
+  const coverURL = await getEventCoverImage(supabase, eventId);
   if (coverURL === imageURL) {
-    setEventCoverImage(eventId, null);
+    setEventCoverImage(supabase, eventId, null);
   }
   const { data, error } = await supabase.storage
     .from("event")
@@ -88,10 +87,10 @@ const deleteImageFromGallery = async (
 };
 
 const setEventCoverImage = async (
+  supabase: TypedSupabaseClient,
   eventId: string,
   publicUrl: string | null
 ): Promise<ServerActionResponse> => {
-  const supabase = createClient(cookies());
   const { error } = await supabase
     .from("events")
     .update({ cover_image_url: publicUrl?.split("/").at(-1) })

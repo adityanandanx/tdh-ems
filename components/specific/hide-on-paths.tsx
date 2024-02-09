@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
-import React, { ComponentPropsWithoutRef, ReactNode } from "react";
+import { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;

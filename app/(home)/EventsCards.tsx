@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getEventCoverImage, getEvents } from "@/lib/public/actions";
-import { getGalleryImageUrlFromName } from "@/lib/public/utils";
+import { getEvents } from "@/lib/actions/events";
+import { getGalleryImageUrlFromName } from "@/lib/actions/utils";
+import { getSupabase } from "@/lib/supabase/server";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,8 @@ import React from "react";
 type Props = {};
 
 const EventsCards = async (props: Props) => {
-  const events = await getEvents(0, 3, true);
+  const supabase = getSupabase();
+  const events = await getEvents(supabase, 0, 3, true);
 
   return (
     <div className="w-full space-y-4">

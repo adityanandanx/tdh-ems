@@ -4,7 +4,7 @@ import React, { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { eventSchema } from "./schema";
-import { EventsRow } from "@/lib/dbTypes";
+import { EventsRow } from "@/lib/supabase/types";
 import { createEvent, updateEvent } from "@/app/dashboard/@admin/actions";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +33,7 @@ import { useToast } from "@/components/ui/use-toast";
 import useActionTransition from "@/hooks/useActionTransition";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSupabase } from "@/lib/supabase/client";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -44,6 +45,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   const updateEventAction = useActionTransition(updateEvent);
   const createEventAction = useActionTransition(createEvent);
   const router = useRouter();
+  const supabase = useSupabase();
   const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof eventSchema>>({
@@ -66,10 +68,13 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
     switch (action) {
       case "update":
         if (!defaultValues?.id) throw new Error("No ID for event update");
-        updateEventAction.runAction({ id: defaultValues.id, ...values });
+        updateEventAction.runAction(supabase, {
+          id: defaultValues.id,
+          ...values,
+        });
         break;
       case "create":
-        const id = await createEventAction.runAction({ ...values });
+        const id = await createEventAction.runAction(supabase, { ...values });
         console.log(id);
         router.push(`event/${id}`);
 

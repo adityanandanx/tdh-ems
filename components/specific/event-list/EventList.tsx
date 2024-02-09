@@ -5,19 +5,21 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import InfiniteLoading from "./infinte-loading";
 import useNavHeight from "@/hooks/useNavHeight";
 import useViewportHeight from "@/hooks/useViewportHeight";
-import { getEvents } from "@/lib/public/actions";
+import { getEvents } from "@/lib/actions/events";
 import { useRouter, useSearchParams } from "next/navigation";
-import { EventsRow } from "@/lib/dbTypes";
+import { EventsRow } from "@/lib/supabase/types";
 import _ from "lodash";
 import { getUserRegisteredEvents } from "@/lib/userActions";
+import { useSupabase } from "@/lib/supabase/client";
 
 type Props = {};
 
 const EventList = ({}: Props) => {
+  const supabase = useSupabase();
   const fetchEvents = async ({ pageParam = 0 }) => {
     let events: EventsRow[];
 
-    events = await getEvents(pageParam, 3, false);
+    events = await getEvents(supabase, pageParam, 3, false);
     return { events, pageParam };
   };
 

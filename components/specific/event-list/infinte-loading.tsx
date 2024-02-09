@@ -1,6 +1,6 @@
 "use client";
 import { MotionButton } from "@/components/ui/button";
-import { EventsRow } from "@/lib/dbTypes";
+import { EventsRow } from "@/lib/supabase/types";
 import { cn } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useScroll, useSpring, useTransform } from "framer-motion";
