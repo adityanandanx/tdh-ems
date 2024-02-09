@@ -5,10 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getSupabase } from "@/lib/supabase";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import React from "react";
 import LoginForm from "./LoginForm";
 
 type Props = {

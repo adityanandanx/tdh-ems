@@ -1,11 +1,11 @@
 "use server";
 
 import { EventsColumn } from "../dbTypes";
-import { getSupabase } from "../supabase";
+import { createClient } from "../supabase/client";
 import { getGalleryImageUrlFromName } from "./utils";
 
 const getEventGallery = async (eventId: string) => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   const { data, error } = await supabase.storage
     .from("event")
     .list(`${eventId}/gallery`, { sortBy: { column: "name", order: "asc" } });
@@ -22,7 +22,7 @@ const getEventGallery = async (eventId: string) => {
 };
 
 const getEventCoverImage = async (eventId: string) => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   const { data, error } = await supabase
     .from("events")
     .select("cover_image_url")
@@ -41,7 +41,7 @@ const getEvents = async (
   limit = 10,
   onlyPublished: boolean = false
 ) => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   if (onlyPublished) {
     const { data, error } = await supabase
       .from("events")
@@ -69,7 +69,7 @@ const searchEvents = async (
   page: number = 0,
   limit = 10
 ) => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   const { data, error } = await supabase
     .from("events")
     .select()
@@ -87,7 +87,7 @@ const searchEventsByTags = async (
   page: number = 0,
   limit = 10
 ) => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   const { data, error } = await supabase
     .from("events")
     .select()
@@ -101,7 +101,7 @@ const searchEventsByTags = async (
 };
 
 const getAllEvents = async () => {
-  const supabase = getSupabase();
+  const supabase = createClient();
   const { data, error } = await supabase.from("events").select();
   if (error) throw new Error(error.message);
   return data;

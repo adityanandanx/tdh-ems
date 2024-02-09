@@ -2,15 +2,16 @@
 
 import { EventsRow } from "@/lib/dbTypes";
 import { getEventCoverImage } from "@/lib/public/actions";
-import { getSupabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { ServerActionResponse } from "@/lib/types";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const getEvent = async (
   id: string
 ): Promise<ServerActionResponse<EventsRow>> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { data, error } = await supabase.from("events").select().eq("id", id);
   return { error: error?.message, data: data?.[0] };
 };
@@ -18,7 +19,7 @@ const getEvent = async (
 const updateEvent = async (
   newdata: Partial<EventsRow> & { id: string | number }
 ): Promise<ServerActionResponse> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   console.log("UPDATING", newdata);
 
   const { error } = await supabase
@@ -31,7 +32,7 @@ const updateEvent = async (
 const createEvent = async (
   newdata: Omit<EventsRow, "id" | "created_at" | "published" | "owner" | "tags">
 ): Promise<ServerActionResponse<number | undefined>> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { data, error } = await supabase
     .from("events")
     .insert(newdata)
@@ -42,7 +43,7 @@ const createEvent = async (
 };
 
 const deleteEvent = async (id: string): Promise<ServerActionResponse> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { error } = await supabase.from("events").delete().eq("id", id);
   return { error: error?.message };
 };
@@ -52,7 +53,7 @@ const uploadImageToGallery = async (
   fdata: FormData
 ): Promise<ServerActionResponse> => {
   const file = fdata.get("image")! as File;
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { data, error } = await supabase.storage
     .from("event")
     .upload(
@@ -71,7 +72,7 @@ const deleteImageFromGallery = async (
   eventId: string,
   imageURL: string
 ): Promise<ServerActionResponse> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const imgPath = imageURL.split("event/")[1];
   const coverURL = await getEventCoverImage(eventId);
   if (coverURL === imageURL) {
@@ -90,7 +91,7 @@ const setEventCoverImage = async (
   eventId: string,
   publicUrl: string | null
 ): Promise<ServerActionResponse> => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { error } = await supabase
     .from("events")
     .update({ cover_image_url: publicUrl?.split("/").at(-1) })

@@ -1,16 +1,17 @@
 "use server";
 import { cache } from "react";
-import { getSupabase } from "./supabase";
+import { createClient } from "./supabase/server";
 import { EventsColumn, EventsRow } from "./dbTypes";
+import { cookies } from "next/headers";
 
 const getUser = cache(async () => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const { data } = await supabase.auth.getUser();
   return data.user;
 });
 
 const getUserRole = cache(async () => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const user = await getUser();
   if (!user) throw new Error("User not logged in.");
   const { data, error } = await supabase
@@ -22,7 +23,7 @@ const getUserRole = cache(async () => {
 });
 
 const getUserDetails = cache(async () => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const user = await getUser();
   if (!user) throw new Error("User not logged in.");
   const { data, error } = await supabase
@@ -34,7 +35,7 @@ const getUserDetails = cache(async () => {
 });
 
 const getUserAvatarURL = cache(async () => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const user = await getUser();
   if (!user) throw new Error("User not logged in.");
   const { data } = supabase.storage
@@ -44,7 +45,7 @@ const getUserAvatarURL = cache(async () => {
 });
 
 const getUserRegisteredEvents = cache(async () => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const user = await getUser();
   if (!user) throw new Error("User not logged in.");
   const { data, error } = await supabase

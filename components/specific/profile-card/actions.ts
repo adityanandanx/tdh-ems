@@ -1,12 +1,13 @@
 "use server";
 
-import { getSupabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import type { UsersRow } from "@/lib/dbTypes";
 import { getUser } from "@/lib/userActions";
+import { cookies } from "next/headers";
 
 export const editAvatar = async (fdata: FormData) => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
 
   const user = await getUser();
   if (!user) throw new Error("User not logged in.");
@@ -26,7 +27,7 @@ export const editAvatar = async (fdata: FormData) => {
 export const editDetails = async (
   newdata: Omit<Partial<UsersRow>, "role" | "club_id">
 ) => {
-  const supabase = getSupabase();
+  const supabase = createClient(cookies());
   const user = await getUser();
   console.log(newdata);
 
