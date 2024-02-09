@@ -1,10 +1,6 @@
 import React, { Suspense } from "react";
-import { getEvent } from "../../actions";
-import { notFound } from "next/navigation";
 import { EditEventForm } from "../../edit-event-form";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Separator } from "@/components/ui/separator";
-import { Gallery } from "../../gallery-edit";
 
 type Props = {};
 
