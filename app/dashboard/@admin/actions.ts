@@ -1,5 +1,3 @@
-"use server";
-
 import { EventsRow, TypedSupabaseClient } from "@/lib/supabase/types";
 import { getEventCoverImage } from "@/lib/actions/events";
 import { ServerActionResponse } from "@/lib/types";
