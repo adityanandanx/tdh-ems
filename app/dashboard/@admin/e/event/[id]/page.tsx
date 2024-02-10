@@ -15,14 +15,21 @@ type Props = {
 const EditEventPage = async ({ params }: Props) => {
   if (!params.id) notFound();
   const supabase = getSupabase();
-  const { data: event } = await getEvent(supabase, params.id);
+  const { data: event } = await getEvent(params.id, supabase);
+  if (!event) notFound();
   return (
     <div className="relative flex flex-col lg:flex-row gap-16 items-stretch">
       <Suspense fallback={<Skeleton className="h-96" />}>
-        <EditEventForm defaultValues={event} />
+        <div className="flex-1">
+          <EditEventForm
+            defaultValues={{ ...event, id: parseInt(params.id) }}
+          />
+        </div>
       </Suspense>
       <Suspense fallback={<Skeleton className="h-96" />}>
-        <Gallery eventId={params.id} />
+        <div className="flex-1">
+          <Gallery eventId={params.id} />
+        </div>
       </Suspense>
     </div>
   );

@@ -3,6 +3,7 @@ import { uploadImageToGallery } from "@/app/dashboard/@admin/actions";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSupabase } from "@/lib/supabase/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PlusIcon, Trash2Icon } from "lucide-react";
 import React, { FormEvent, useState, useTransition } from "react";
 import { useDropzone } from "react-dropzone";
@@ -12,7 +13,19 @@ type Props = {
 };
 
 const UploadDropZone = ({ eventId }: Props) => {
-  const [isPending, startTransition] = useTransition();
+  const queryClient = useQueryClient();
+  const uploadMutation = useMutation({
+    mutationFn: (vars: Parameters<typeof uploadImageToGallery>) =>
+      uploadImageToGallery(...vars),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["event", eventId, "gallery"],
+      });
+    },
+    onError: (e) => {
+      throw e;
+    },
+  });
   const [files, setFiles] = useState<File[]>([]);
   const supabase = useSupabase();
 
@@ -28,15 +41,12 @@ const UploadDropZone = ({ eventId }: Props) => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    files.forEach((file) => {
+    files.forEach(async (file) => {
       const fdata = new FormData();
       fdata.append("image", file);
       console.log(fdata.get("image"));
-      startTransition(async () => {
-        const { error } = await uploadImageToGallery(supabase, eventId, fdata);
-
-        setFiles((f) => f.filter((p) => p !== file));
-      });
+      await uploadMutation.mutateAsync([eventId, fdata]);
+      setFiles((f) => f.filter((p) => p !== file));
     });
   };
 
@@ -70,7 +80,7 @@ const UploadDropZone = ({ eventId }: Props) => {
             )}
           </div>
         </div>
-        <Button disabled={isPending} type="submit">
+        <Button disabled={uploadMutation.isPending} type="submit">
           Upload All Selected
         </Button>
       </>

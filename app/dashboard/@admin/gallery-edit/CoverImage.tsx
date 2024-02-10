@@ -1,5 +1,6 @@
 import { getEventCoverImage } from "@/lib/actions/events";
-import { getSupabase } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/client";
+import { useQuery } from "@tanstack/react-query";
 import { ImageIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -8,9 +9,13 @@ type Props = {
   eventId: string;
 };
 
-const CoverImage = async ({ eventId }: Props) => {
-  const supabase = getSupabase();
-  const cover = await getEventCoverImage(supabase, eventId);
+const CoverImage = ({ eventId }: Props) => {
+  const supabase = createClient();
+  const { data: cover, isSuccess } = useQuery({
+    queryKey: ["event", eventId, "gallery", "cover"],
+    queryFn: () => getEventCoverImage(supabase, eventId),
+  });
+  // const cover = await getEventCoverImage(supabase, eventId);
   return (
     <div className="mb-10">
       <h1 className="text-2xl font-medium">Cover</h1>

@@ -29,10 +29,8 @@ import { CalendarIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Switch } from "@/components/ui/switch";
 import { TagInput } from "@/components/ui/tag-input";
-import { useToast } from "@/components/ui/use-toast";
-import useActionTransition from "@/hooks/useActionTransition";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSupabase } from "@/lib/supabase/client";
 
 type Props = {
@@ -41,9 +39,14 @@ type Props = {
 };
 
 const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
-  // const [isPending, startTransition] = useTransition();
-  const updateEventAction = useActionTransition(updateEvent);
-  const createEventAction = useActionTransition(createEvent);
+  const updateEventMutation = useMutation({
+    mutationKey: ["event", defaultValues?.id],
+    mutationFn: updateEvent,
+  });
+  const createEventMutation = useMutation({
+    mutationKey: ["event"],
+    mutationFn: createEvent,
+  });
   const router = useRouter();
   const supabase = useSupabase();
   const queryClient = useQueryClient();
@@ -68,20 +71,15 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
     switch (action) {
       case "update":
         if (!defaultValues?.id) throw new Error("No ID for event update");
-        updateEventAction.runAction(supabase, {
-          id: defaultValues.id,
-          ...values,
-        });
+        updateEventMutation.mutate({ id: defaultValues.id, ...values });
         break;
       case "create":
-        const id = await createEventAction.runAction(supabase, { ...values });
+        createEventMutation.mutate({ ...values });
+        const id = createEventMutation.data?.data;
         console.log(id);
         router.push(`event/${id}`);
-
-        // redirect(`/dashboard/e/${id}`);
         break;
     }
-    queryClient.invalidateQueries({ queryKey: ["events"] });
   }
 
   const onChangeDateToString = (
@@ -360,7 +358,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
 
           <Button
             disabled={
-              updateEventAction.isPending || createEventAction.isPending
+              updateEventMutation.isPending || createEventMutation.isPending
             }
             type="submit"
           >

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/context-menu";
 import useActionTransition from "@/hooks/useActionTransition";
 import { useSupabase } from "@/lib/supabase/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   eventId: string;
@@ -22,10 +23,33 @@ type Props = {
 };
 
 const GalleryImage = ({ eventId, url }: Props) => {
-  const setEventCoverImageAction = useActionTransition(setEventCoverImage);
-  const deleteImageAction = useActionTransition(deleteImageFromGallery);
-  const isPending =
-    setEventCoverImageAction.isPending || deleteImageAction.isPending;
+  // const setEventCoverImageAction = useActionTransition(setEventCoverImage);
+  const queryClient = useQueryClient();
+  const setCoverMutation = useMutation({
+    mutationFn: (vars: Parameters<typeof setEventCoverImage>) =>
+      setEventCoverImage(...vars),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["event", eventId, "gallery", "cover"],
+      });
+    },
+    onError: (e) => {
+      throw e;
+    },
+  });
+  const deleteImageMutation = useMutation({
+    mutationFn: (vars: Parameters<typeof deleteImageFromGallery>) =>
+      deleteImageFromGallery(...vars),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["event", eventId, "gallery"],
+      });
+    },
+    onError: (e) => {
+      throw e;
+    },
+  });
+  const isPending = setCoverMutation.isPending || deleteImageMutation.isPending;
   const supabase = useSupabase();
 
   return (
@@ -51,15 +75,12 @@ const GalleryImage = ({ eventId, url }: Props) => {
       </ContextMenuTrigger>
       <ContextMenuContent className="min-w-[128px]">
         <ContextMenuItem
-          onClick={() =>
-            setEventCoverImageAction.runAction(supabase, eventId, url)
-          }
+          onClick={() => setCoverMutation.mutate([eventId, url])}
         >
           <ImageIcon size={20} /> Set as cover
         </ContextMenuItem>
         <ContextMenuItem
-          onClick={() => () =>
-            deleteImageAction.runAction(supabase, eventId, url)}
+          onClick={() => deleteImageMutation.mutate([eventId, url])}
         >
           <Trash2Icon size={20} /> Delete
         </ContextMenuItem>
