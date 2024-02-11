@@ -1,22 +1,35 @@
-import { EventsColumn, TypedSupabaseClient } from "../supabase/types";
+import {
+  EventsColumn,
+  EventsRow,
+  TypedSupabaseClient,
+} from "../supabase/types";
+import { ServerActionResponse } from "../types";
 import { getGalleryImageUrlFromName } from "./utils";
+
+const getEvent = async (
+  id: string,
+  supabase: TypedSupabaseClient
+): Promise<EventsRow> => {
+  const { data, error } = await supabase.from("events").select().eq("id", id);
+  console.log(data, error);
+  if (error) throw error;
+  return data[0];
+};
 
 const getEventGallery = async (
   supabase: TypedSupabaseClient,
-  eventId: string
+  eventId: string | number
 ) => {
   const { data, error } = await supabase.storage
     .from("event")
     .list(`${eventId}/gallery`, { sortBy: { column: "name", order: "asc" } });
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   const imageURLs: string[] = data.map(
     (d) =>
       supabase.storage
         .from("event")
         .getPublicUrl(`${eventId}/gallery/${d.name}`).data.publicUrl
   );
-  console.log(imageURLs);
-
   return imageURLs;
 };
 
@@ -107,6 +120,7 @@ const getAllEvents = async (supabase: TypedSupabaseClient) => {
   return data;
 };
 export {
+  getEvent,
   getEventGallery,
   getEventCoverImage,
   getEvents,

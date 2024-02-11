@@ -115,6 +115,7 @@ const EventListItem = ({ event, registered = false }: Props) => {
           </div>
         </CardContent>
       </div>
+      <Link href={`/events/${event.id}`} className="absolute inset-0"></Link>
     </Card>
   );
 };

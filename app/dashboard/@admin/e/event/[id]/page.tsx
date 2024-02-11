@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { EditEventForm } from "../../../edit-event-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Gallery } from "../../../gallery-edit";
-import { getEvent } from "../../../actions";
 import { getSupabase } from "@/lib/supabase/server";
+import { getEvent } from "@/lib/actions/events";
 
 type Props = {
   params: {
@@ -15,7 +15,7 @@ type Props = {
 const EditEventPage = async ({ params }: Props) => {
   if (!params.id) notFound();
   const supabase = getSupabase();
-  const { data: event } = await getEvent(params.id, supabase);
+  const event = await getEvent(params.id, supabase);
   if (!event) notFound();
   return (
     <div className="relative flex flex-col lg:flex-row gap-16 items-stretch">

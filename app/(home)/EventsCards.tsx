@@ -29,7 +29,7 @@ const EventsCards = async (props: Props) => {
         )}
         {events.map((event) => (
           <Link
-            href={`/events`}
+            href={`/events/${event.id}`}
             className="flex-1 max-w-md w-full"
             key={event.id}
           >

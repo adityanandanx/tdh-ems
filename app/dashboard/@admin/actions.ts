@@ -6,16 +6,6 @@ import { createClient } from "@/lib/supabase/client";
 
 const supabase = createClient();
 
-const getEvent = async (
-  id: string,
-  supabase: TypedSupabaseClient
-): Promise<ServerActionResponse<EventsRow>> => {
-  const { data, error } = await supabase.from("events").select().eq("id", id);
-  console.log(data, error);
-
-  return { error: error?.message, data: data?.[0] };
-};
-
 const updateEvent = async (
   newdata: Partial<EventsRow> & { id: string | number }
 ): Promise<ServerActionResponse> => {
@@ -63,8 +53,6 @@ const uploadImageToGallery = async (eventId: string, fdata: FormData) => {
 };
 
 const deleteImageFromGallery = async (eventId: string, imageURL: string) => {
-  console.log("SLFDKJ");
-
   const imgPath = imageURL.split("event/")[1];
   const coverURL = await getEventCoverImage(supabase, eventId);
   if (coverURL === imageURL) {
@@ -90,7 +78,6 @@ const setEventCoverImage = async (
 };
 
 export {
-  getEvent,
   updateEvent,
   createEvent,
   deleteEvent,
