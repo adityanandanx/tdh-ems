@@ -24,6 +24,7 @@ CREATE UNIQUE INDEX identities_pkey ON auth.identities USING btree (provider, id
 
 alter table "auth"."identities" add constraint "identities_pkey" PRIMARY KEY using index "identities_pkey";
 
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user();
 
 
