@@ -67,17 +67,20 @@ const GalleryView = ({ eventId }: Props) => {
         ))}
       </div>
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="w-full p-0">
-          <Carousel opts={{ startIndex: current, loop: true }}>
-            <CarouselContent className="items-center">
+        <DialogContent className="w-full p-0 max-w-screen-lg h-[98vh]">
+          <Carousel
+            opts={{ startIndex: current, loop: true }}
+            className="my-auto"
+          >
+            <CarouselContent className="">
               {imgUrls.map((url) => (
                 <CarouselItem key={url}>
                   <Image
-                    className="w-auto h-full rounded-lg object-contain cursor-pointer"
+                    className="w-auto h-full max-h-[98vh] rounded-lg object-contain cursor-pointer mx-auto"
                     src={url}
                     alt="image"
-                    width={512}
-                    height={256}
+                    width={1080}
+                    height={1080}
                   />
                 </CarouselItem>
               ))}
