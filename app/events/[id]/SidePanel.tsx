@@ -28,14 +28,12 @@ const SidePanel = ({ event }: Props) => {
   const month = format(date, "LLLL");
   const year = format(date, "yyyy");
 
-  const registrationsEnded = isAfter(
-    new Date(event.registration_end),
-    new Date()
-  );
-  const registrationsStarted = isBefore(
-    new Date(event.registration_start),
-    new Date()
-  );
+  const regStart = new Date(event.registration_start);
+  const regEnd = new Date(event.registration_end);
+  const now = new Date();
+
+  const registrationsEnded = now > regEnd;
+  const registrationsStarted = now > regStart;
   const registrationsOpen = registrationsStarted && !registrationsEnded;
 
   return (
@@ -51,7 +49,7 @@ const SidePanel = ({ event }: Props) => {
       <div className="text-sm text-center">
         {registrationsStarted ? (
           <p>
-            Registrations end{registrationsEnded ? "" : "ed"}{" "}
+            Registration end{registrationsEnded ? "ed" : "s"}{" "}
             {/* {format(new Date(event.registration_end), "ee/mm/yyyy")} */}
             {formatDistanceToNow(new Date(event.registration_end), {
               addSuffix: true,
