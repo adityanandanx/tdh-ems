@@ -12,5 +12,5 @@ export const formatTimeStamp = (
 ) => {
   if (!ts) return null_msg;
   const t = new Date(ts);
-  return format(t, "EEEE, do MMM yyyy");
+  return format(t, "EEEE, do MMM yyyy, hh:mm aa");
 };

@@ -1,8 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import React, { ChangeEvent, useTransition } from "react";
+import { ControllerRenderProps, Field, useForm } from "react-hook-form";
+import { TypeOf, z } from "zod";
 import { eventSchema } from "./schema";
 import { EventsRow } from "@/lib/supabase/types";
 import { createEvent, updateEvent } from "@/app/dashboard/@admin/actions";
@@ -32,6 +32,7 @@ import { TagInput } from "@/components/ui/tag-input";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSupabase } from "@/lib/supabase/client";
+import { format } from "date-fns";
 
 type Props = {
   defaultValues?: EventsRow;
@@ -82,13 +83,49 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
     }
   }
 
-  const onChangeDateToString = (
-    date: Date | undefined,
-    onChange: (s: string) => void
-  ) => {
-    if (!date) return;
-    onChange(date.toISOString());
-  };
+  function isString(value: any): value is string {
+    if (typeof value === "string") return true;
+    return false;
+  }
+
+  function handleTimeChange<T extends keyof z.infer<typeof eventSchema>>(
+    e: ChangeEvent<HTMLInputElement>,
+    field: ControllerRenderProps<z.infer<typeof eventSchema>, T>
+  ) {
+    const time = e.target.value;
+    if (!isString(field.value)) return;
+    if (!field.value) {
+      field.onChange(time);
+      return;
+    }
+    const olddate = new Date(field.value);
+    const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
+    const newdate = new Date(
+      olddate.getFullYear(),
+      olddate.getMonth(),
+      olddate.getDate(),
+      hours,
+      minutes
+    );
+    field.onChange(newdate.toISOString());
+  }
+
+  function handleDateChange<T extends keyof z.infer<typeof eventSchema>>(
+    d: Date | undefined,
+    field: ControllerRenderProps<z.infer<typeof eventSchema>, T>
+  ) {
+    console.log(typeof field.value);
+    if (!d || !isString(field.value)) return;
+    const olddate = new Date(field.value);
+    const newdate = new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      d.getDate(),
+      olddate.getHours(),
+      olddate.getMinutes()
+    );
+    field.onChange(newdate.toISOString());
+  }
 
   return (
     <Form {...form}>
@@ -162,15 +199,29 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
+                    <PopoverContent className="w-auto p-0 flex" align="start">
                       <Calendar
                         mode="single"
+                        footer={
+                          <>
+                            <p>
+                              Pick a time:{" "}
+                              <Input
+                                type="time"
+                                defaultValue={
+                                  field.value
+                                    ? format(new Date(field.value), "hh:mm")
+                                    : undefined
+                                }
+                                onChange={(e) => handleTimeChange(e, field)}
+                              />
+                            </p>
+                          </>
+                        }
                         selected={
                           field.value ? new Date(field.value) : undefined
                         }
-                        onSelect={(d) =>
-                          onChangeDateToString(d, field.onChange)
-                        }
+                        onSelect={(d) => handleDateChange(d, field)}
                         // disabled={(date) => date < new Date()}
                         initialFocus
                       />
@@ -204,12 +255,26 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
+                        footer={
+                          <>
+                            <p>
+                              Pick a time:{" "}
+                              <Input
+                                type="time"
+                                defaultValue={
+                                  field.value
+                                    ? format(new Date(field.value), "hh:mm")
+                                    : undefined
+                                }
+                                onChange={(e) => handleTimeChange(e, field)}
+                              />
+                            </p>
+                          </>
+                        }
                         selected={
                           field.value ? new Date(field.value) : undefined
                         }
-                        onSelect={(d) =>
-                          onChangeDateToString(d, field.onChange)
-                        }
+                        onSelect={(d) => handleDateChange(d, field)}
                         // disabled={(date) => date < new Date()}
                         initialFocus
                       />
@@ -245,12 +310,26 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
+                        footer={
+                          <>
+                            <p>
+                              Pick a time:{" "}
+                              <Input
+                                type="time"
+                                defaultValue={
+                                  field.value
+                                    ? format(new Date(field.value), "hh:mm")
+                                    : undefined
+                                }
+                                onChange={(e) => handleTimeChange(e, field)}
+                              />
+                            </p>
+                          </>
+                        }
                         selected={
                           field.value ? new Date(field.value) : undefined
                         }
-                        onSelect={(d) =>
-                          onChangeDateToString(d, field.onChange)
-                        }
+                        onSelect={(d) => handleDateChange(d, field)}
                         // disabled={(date) => date < new Date()}
                         initialFocus
                       />
@@ -284,12 +363,26 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
+                        footer={
+                          <>
+                            <p>
+                              Pick a time:{" "}
+                              <Input
+                                type="time"
+                                defaultValue={
+                                  field.value
+                                    ? format(new Date(field.value), "hh:mm")
+                                    : undefined
+                                }
+                                onChange={(e) => handleTimeChange(e, field)}
+                              />
+                            </p>
+                          </>
+                        }
                         selected={
                           field.value ? new Date(field.value) : undefined
                         }
-                        onSelect={(d) =>
-                          onChangeDateToString(d, field.onChange)
-                        }
+                        onSelect={(d) => handleDateChange(d, field)}
                         // disabled={(date) => date < new Date()}
                         initialFocus
                       />
