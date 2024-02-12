@@ -1,5 +1,5 @@
 
-CREATE trigger on_auth_user_created
+CREATE or REPLACE trigger on_auth_user_created
   AFTER INSERT ON auth.users
   for each ROW EXECUTE PROCEDURE handle_new_user();
 
@@ -121,27 +121,27 @@ LIMIT 30; -- Adjust the total number of events as needed
 
 
 -- test user email identities
-INSERT INTO
-    auth.identities (
-        id,
-        user_id,
-        identity_data,
-        provider,
-        last_sign_in_at,
-        created_at,
-        updated_at
-    ) (
-        select
-            uuid_generate_v4 (),
-            id,
-            format('{"sub":"%s","email":"%s"}', id::text, email)::jsonb,
-            'email',
-            current_timestamp,
-            current_timestamp,
-            current_timestamp
-        from
-            auth.users
-    );
+-- INSERT INTO
+--     auth.identities (
+--         id,
+--         user_id,
+--         identity_data,
+--         provider,
+--         last_sign_in_at,
+--         created_at,
+--         updated_at
+--     ) (
+--         select
+--             uuid_generate_v4 (),
+--             id,
+--             format('{"sub":"%s","email":"%s"}', id::text, email)::jsonb,
+--             'email',
+--             current_timestamp,
+--             current_timestamp,
+--             current_timestamp
+--         from
+--             auth.users
+--     );
 
 -- seed.sql
 
