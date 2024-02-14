@@ -154,6 +154,7 @@ export interface Database {
         Row: {
           club_id: number | null
           created_at: string
+          email: string
           full_name: string | null
           id: string
           role: Database["public"]["Enums"]["user_role"]
@@ -161,6 +162,7 @@ export interface Database {
         Insert: {
           club_id?: number | null
           created_at?: string
+          email: string
           full_name?: string | null
           id: string
           role?: Database["public"]["Enums"]["user_role"]
@@ -168,6 +170,7 @@ export interface Database {
         Update: {
           club_id?: number | null
           created_at?: string
+          email?: string
           full_name?: string | null
           id?: string
           role?: Database["public"]["Enums"]["user_role"]

@@ -16,6 +16,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import SearchBar from "@/components/specific/search-bar";
 import { getSupabase } from "@/lib/supabase/server";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   searchParams: {
@@ -42,11 +43,16 @@ const AdminDashboard = async ({
   return (
     <>
       <div className="mb-4 flex justify-between">
-        <h1 className="text-2xl font-medium">Events</h1>
-        <Link href={"/dashboard/e/event"}>Create Event</Link>
+        <div>
+          <h1 className="text-2xl font-medium">Events</h1>
+          <p className="text-muted-foreground">Create, Edit or Delete Events</p>
+        </div>
+        <Link href={"/dashboard/e/event"}>
+          <Button size={"sm"}>Create Event</Button>
+        </Link>
       </div>
       <SearchBar />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <div className="flex flex-col">
         {events.map((event) => (
           <Link
             href={`/dashboard/e/event/${event.id}`}
@@ -56,12 +62,12 @@ const AdminDashboard = async ({
               event.published ? "" : "opacity-50"
             )}
           >
-            <Card key={event.id} className="w-full h-full">
+            <div key={event.id} className="w-full flex items-stretch p-0">
               {event.cover_image_url ? (
                 <Image
                   width={300}
                   height={128}
-                  className="h-32 object-cover w-full rounded-md shadow-lg shadow-primary-foreground/50"
+                  className="object-cover h-24 w-24 rounded-md shadow-lg shadow-primary-foreground/50"
                   src={getGalleryImageUrlFromName(
                     event.id,
                     event.cover_image_url
@@ -69,17 +75,18 @@ const AdminDashboard = async ({
                   alt={event.title + " cover image"}
                 />
               ) : (
-                <div className="h-32 w-full flex items-center justify-center bg-muted rounded-md">
+                <div className="h-24 w-24 flex items-center justify-center bg-muted rounded-md">
                   <ImageIcon />
                 </div>
               )}
-              <CardHeader>
+              <CardHeader className="self-center">
                 <CardTitle>{event.title}</CardTitle>
                 <CardDescription className="">
                   on {formatTimeStamp(event.event_start)}
                 </CardDescription>
               </CardHeader>
-            </Card>
+            </div>
+            <Separator className="my-2" />
           </Link>
         ))}
       </div>

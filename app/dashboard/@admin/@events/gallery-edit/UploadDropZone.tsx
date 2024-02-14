@@ -1,5 +1,5 @@
 "use client";
-import { uploadImageToGallery } from "@/app/dashboard/@admin/actions";
+import { uploadImageToGallery } from "../actions";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useSupabase } from "@/lib/supabase/client";

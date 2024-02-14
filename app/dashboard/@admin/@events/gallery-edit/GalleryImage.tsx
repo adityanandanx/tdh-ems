@@ -1,8 +1,4 @@
 "use client";
-import {
-  deleteImageFromGallery,
-  setEventCoverImage,
-} from "@/app/dashboard/@admin/actions";
 import { cn } from "@/lib/utils";
 import {
   ImageIcon,
@@ -23,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { deleteImageFromGallery, setEventCoverImage } from "../actions";
 
 type Props = {
   eventId: string;

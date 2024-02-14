@@ -5,7 +5,6 @@ import { ControllerRenderProps, Field, useForm } from "react-hook-form";
 import { TypeOf, z } from "zod";
 import { eventSchema } from "./schema";
 import { EventsRow } from "@/lib/supabase/types";
-import { createEvent, updateEvent } from "@/app/dashboard/@admin/actions";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +32,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSupabase } from "@/lib/supabase/client";
 import { format } from "date-fns";
+import { createEvent, updateEvent } from "../actions";
 
 type Props = {
   defaultValues?: EventsRow;
