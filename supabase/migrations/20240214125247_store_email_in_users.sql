@@ -1,4 +1,4 @@
-alter table "public"."users" add column "email" text not null;
+alter table "public"."users" add column "email" text;
 
 set check_function_bodies = off;
 
