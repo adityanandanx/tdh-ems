@@ -28,7 +28,7 @@ const Team = () => {
           The Team
           <div className="bg-primary h-1 absolute left-0 right-0"></div>
         </h1>
-        <Tabs defaultValue="tech">
+        <Tabs defaultValue="core">
           <TabsList>
             {TEAMS.map((team) => (
               <TabsTrigger key={team} className="capitalize" value={team}>
@@ -42,7 +42,7 @@ const Team = () => {
                 <Card className="h-full overflow-hidden text-center">
                   <CardHeader>
                     <Image
-                      className="rounded-full aspect-square"
+                      className="rounded-full aspect-square object-cover object-top"
                       alt={person.name + " photo"}
                       src={person.imgPath}
                       width={512}

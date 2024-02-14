@@ -1,6 +1,6 @@
 import { TeamMember } from "./types";
 
-export const TEAMS = <const>["tech", "core", "events", "research", "advisors"];
+export const TEAMS = <const>["core", "tech", "events", "research", "advisors"];
 
 export const teamData: TeamMember[] = [
   {
@@ -17,46 +17,45 @@ export const teamData: TeamMember[] = [
   {
     name: "Devaditya Singh",
     team: "tech",
-    imgPath: "/team/dev.jpg",
+    imgPath: "/team/devaditya.jpg",
     social: {
       linkedin: "https://www.linkedin.com/in/devaditya-singh-638990247",
       insta: "https://www.instagram.com/devadixtya",
     },
   },
   {
-    name: "Person 3",
-    team: "tech",
-    imgPath: "/team/person.jpg",
-    social: {},
-  },
-  {
-    name: "Person 4",
+    name: "Unnati",
     team: "core",
-    imgPath: "/team/person.jpg",
+    imgPath: "/team/unnati.jpg",
     social: {},
   },
   {
-    name: "Person 5",
-    team: "events",
-    imgPath: "/team/person.jpg",
-    social: {},
-  },
-  {
-    name: "Person 6",
-    team: "research",
-    imgPath: "/team/person.jpg",
-    social: {},
-  },
-  {
-    name: "Person 7",
-    team: "advisors",
-    imgPath: "/team/person.jpg",
-    social: {},
-  },
-  {
-    name: "Person 8",
+    name: "Ishita Gupta",
     team: "core",
-    imgPath: "/team/person.jpg",
+    imgPath: "/team/ishita.jpg",
     social: {},
   },
+  {
+    name: "Ishant Gupta",
+    team: "core",
+    imgPath: "/team/ishant.jpg",
+    social: {},
+  },
+  {
+    name: "Naman Singhal",
+    team: "core",
+    imgPath: "/team/naman.jpg",
+    social: {},
+  },
+  {
+    name: "Devaditya Singh",
+    team: "core",
+    imgPath: "/team/devaditya.jpg",
+    social: {},
+  },
+  { name: "Tanya", team: "core", imgPath: "/team/tanya.jpg", social: {} },
+  { name: "Karan", team: "core", imgPath: "/team/karan.jpg", social: {} },
+  { name: "Sakshi", team: "core", imgPath: "/team/sakshi.jpg", social: {} },
+  { name: "Adarsh", team: "core", imgPath: "/team/adarsh.jpg", social: {} },
+  { name: "Akhil", team: "core", imgPath: "/team/akhil.jpg", social: {} },
 ];
