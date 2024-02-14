@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React from "react";
-import { useUserAvatarQuery } from "../query-hooks";
+import { useUserAvatarQuery } from "./hooks/query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserIcon } from "lucide-react";
 

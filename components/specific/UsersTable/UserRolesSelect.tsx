@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { UsersRow } from "@/lib/supabase/types";
 import React from "react";
-import { useChangeRoleMutation } from "../mutation-hooks";
+import { useChangeRoleMutation } from "./hooks/mutation";
 
 type Props = {
   userId: string;

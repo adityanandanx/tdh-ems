@@ -13,19 +13,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -36,7 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { UsersRow } from "@/lib/supabase/types";
-import { useAllUsersQuery } from "../query-hooks";
+import { useAllUsersQuery } from "./hooks/query";
 import UserAvatar from "./UserAvatar";
 import UserRolesSelect from "./UserRolesSelect";
 
@@ -129,7 +118,11 @@ export const columns: ColumnDef<UsersRow>[] = [
   // },
 ];
 
-export default function UsersTable() {
+type Props = {
+  users: UsersRow[];
+};
+
+export default function UsersTable({ users }: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -138,10 +131,8 @@ export default function UsersTable() {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  const { data: users } = useAllUsersQuery();
-
   const table = useReactTable({
-    data: users || [],
+    data: users,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
