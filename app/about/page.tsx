@@ -11,7 +11,7 @@ const About = () => {
           src={teamImg}
           alt="Team image"
           priority
-          className="absolute w-full h-full left-0 top-0 object-cover object-center"
+          className="absolute w-full h-full left-0 top-0 object-cover object-top"
         />
       </section>
 
