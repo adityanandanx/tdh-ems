@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
-import SearchBar from "../../../components/specific/search-bar";
+import SearchBar from "@/components/specific/search-bar";
 import { getSupabase } from "@/lib/supabase/server";
 
 type Props = {
