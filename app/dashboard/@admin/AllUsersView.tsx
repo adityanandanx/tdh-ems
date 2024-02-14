@@ -7,7 +7,7 @@ import UsersTableSkeleton from "@/components/specific/UsersTable/UsersTableSkele
 
 type Props = {};
 
-const UsersPage = (props: Props) => {
+const AllUsersView = (props: Props) => {
   const { data: users, isPending, isError } = useAllUsersQuery();
   return (
     <>
@@ -30,4 +30,4 @@ const UsersPage = (props: Props) => {
   );
 };
 
-export default UsersPage;
+export default AllUsersView;

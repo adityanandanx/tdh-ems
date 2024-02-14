@@ -18,7 +18,7 @@ import SearchBar from "@/components/specific/search-bar";
 import { getSupabase } from "@/lib/supabase/server";
 import { Separator } from "@/components/ui/separator";
 import { UsersTable } from "@/components/specific/UsersTable";
-import UsersPage from "./UsersPage";
+import AllUsersView from "./AllUsersView";
 
 type Props = {
   searchParams: {
@@ -114,7 +114,7 @@ const AdminDashboard = async ({
         orientation="vertical"
       />
       <div className="flex-1">
-        <UsersPage />
+        <AllUsersView />
       </div>
     </div>
   );

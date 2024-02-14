@@ -5,6 +5,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Gallery } from "../../../gallery-edit";
 import { getSupabase } from "@/lib/supabase/server";
 import { getEvent } from "@/lib/actions/events";
+import { EventUsersView } from "./EventUsersView";
+import { Separator } from "@/components/ui/separator";
 
 type Props = {
   params: {
@@ -18,19 +20,23 @@ const EditEventPage = async ({ params }: Props) => {
   const event = await getEvent(params.id, supabase);
   if (!event) notFound();
   return (
-    <div className="relative flex flex-col lg:flex-row gap-16 items-stretch">
-      <Suspense fallback={<Skeleton className="h-96" />}>
-        <div className="flex-1">
-          <EditEventForm
-            defaultValues={{ ...event, id: parseInt(params.id) }}
-          />
-        </div>
-      </Suspense>
-      <Suspense fallback={<Skeleton className="h-96" />}>
-        <div className="flex-1">
-          <Gallery eventId={params.id} />
-        </div>
-      </Suspense>
+    <div>
+      <div className="relative flex flex-col lg:flex-row gap-16 items-stretch">
+        <Suspense fallback={<Skeleton className="h-96" />}>
+          <div className="flex-1">
+            <EditEventForm
+              defaultValues={{ ...event, id: parseInt(params.id) }}
+            />
+          </div>
+        </Suspense>
+        <Suspense fallback={<Skeleton className="h-96" />}>
+          <div className="flex-1">
+            <Gallery eventId={params.id} />
+          </div>
+        </Suspense>
+      </div>
+      <Separator className="w-full my-10" />
+      <EventUsersView eventId={params.id} />
     </div>
   );
 };
