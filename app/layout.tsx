@@ -6,6 +6,7 @@ import Provider from "@/components/provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from "@/components/shared/footer";
 import { HideOnPaths } from "@/components/specific/hide-on-paths";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
           aria-hidden
           id="visible-area"
         ></div>
+        <Analytics />
         <Provider>
           <Nav />
           <div className="min-h-[80vh]">{children}</div>
