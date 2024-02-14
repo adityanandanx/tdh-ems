@@ -9,7 +9,7 @@ const GallerySkeleton = (props: Props) => {
       {[...Array(10)].map((_, i) => (
         <>
           <Skeleton
-            key={i}
+            key={_ + i}
             className="w-auto max-h-[256px] rounded cursor-pointer object-contain"
           />
         </>

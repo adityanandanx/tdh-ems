@@ -16,17 +16,18 @@ const GalleryPage = (props: Props) => {
     queryFn: () => getEvents(supabase, 0),
   });
 
-  const generateQueries = (events: EventsRow[] | undefined) => {
-    if (!events) return [];
-    return events.map((eve) => ({
-      queryKey: ["event", eve.id, "gallery"],
-      queryFn: () => getEventGallery(supabase, eve.id),
-      enabled: !!events,
-    }));
-  };
-
   const results = useQueries({
-    queries: generateQueries(events),
+    queries: events
+      ? events.map((eve) => ({
+          queryKey: ["event", eve.id, "gallery"],
+          queryFn: () => getEventGallery(supabase, eve.id),
+          // enabled: !!events,
+        }))
+      : [],
+  });
+
+  results.map((res) => {
+    if (res.isError) throw res.error;
   });
 
   const imgUrls: string[] = [];
@@ -41,8 +42,8 @@ const GalleryPage = (props: Props) => {
     <>
       <section className="relative px-5 flex flex-col py-32 gap-5 overflow-hidden max-w-screen-xl mx-auto">
         <h1 className="text-6xl font-bold">Gallery</h1>
-        {results.map((result) => {
-          if (result.isPending) return <GallerySkeleton />;
+        {results.map((result, i) => {
+          if (result.isPending) return <GallerySkeleton key={i} />;
         })}
         <Gallery imgUrls={imgUrls} />
       </section>

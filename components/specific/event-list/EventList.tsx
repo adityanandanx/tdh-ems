@@ -29,7 +29,7 @@ const EventList = ({}: Props) => {
   };
 
   const registeredEventsQuery = useQuery({
-    queryKey: ["events", "registered"],
+    queryKey: ["event", "registered"],
     queryFn: fetchOwnEvents,
   });
 
@@ -37,7 +37,7 @@ const EventList = ({}: Props) => {
   const viewHeight = useViewportHeight();
 
   const eventsQuery = useInfiniteQuery({
-    queryKey: ["events"],
+    queryKey: ["event"],
     queryFn: fetchEvents,
     initialPageParam: 0,
     enabled: !!registeredEventsQuery.data,
