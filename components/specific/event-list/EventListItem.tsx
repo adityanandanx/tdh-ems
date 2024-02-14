@@ -19,6 +19,7 @@ import { useSearchParams } from "next/navigation";
 import { registerForEvent } from "./actions";
 import useActionTransition from "@/hooks/useActionTransition";
 import { useQueryClient } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
 
 type Props = {
   event: EventsRow;
@@ -41,6 +42,20 @@ const EventListItem = ({ event, registered = false }: Props) => {
     registerAction.runAction(event.id.toString());
     queryClient.invalidateQueries({ queryKey: ["events", "registered"] });
   };
+
+  const regStart = event.registration_start
+    ? new Date(event.registration_start)
+    : null;
+  const regEnd = event.registration_end
+    ? new Date(event.registration_end)
+    : null;
+  const eventEnd = event.event_end ? new Date(event.event_end) : null;
+  const now = new Date();
+
+  const registrationsEnded = regEnd && now > regEnd;
+  const registrationsStarted = regStart && now > regStart;
+  const registrationsOpen = registrationsStarted && !registrationsEnded;
+  const eventEnded = eventEnd && now > eventEnd;
 
   return (
     <Card
@@ -77,21 +92,33 @@ const EventListItem = ({ event, registered = false }: Props) => {
           {event.registration_start &&
           new Date() > new Date(event.registration_start) ? (
             <div className="flex flex-col text-center">
-              <Button
-                disabled={registered || registerAction.isPending}
-                onClick={handleRegister}
-                className="w-fit"
-                size={"sm"}
-                variant={"default"}
-              >
-                {registered ? (
-                  <>
-                    Registered <CheckIcon size={16} />
-                  </>
-                ) : (
-                  "Register"
-                )}
-              </Button>
+              {registrationsOpen ? (
+                <Button
+                  disabled={registered || registerAction.isPending}
+                  onClick={handleRegister}
+                  className="w-fit"
+                  size={"sm"}
+                  variant={"default"}
+                >
+                  {registered ? (
+                    <>
+                      Registered <CheckIcon size={16} />
+                    </>
+                  ) : (
+                    "Register"
+                  )}
+                </Button>
+              ) : eventEnded ? (
+                <p className="text-left">
+                  Event Ended{" "}
+                  {formatDistanceToNow(eventEnd, { addSuffix: true })}
+                </p>
+              ) : regEnd ? (
+                <p className="text-left">
+                  {"Registrations Ended " +
+                    formatDistanceToNow(regEnd, { addSuffix: true })}
+                </p>
+              ) : null}
               {/* <span className="text-xs">
                 {formatTimeStamp(event.registration_end)}
               </span> */}
