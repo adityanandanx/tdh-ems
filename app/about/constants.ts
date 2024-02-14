@@ -24,12 +24,6 @@ export const teamData: TeamMember[] = [
     },
   },
   {
-    name: "Unnati",
-    team: "core",
-    imgPath: "/team/unnati.jpg",
-    social: {},
-  },
-  {
     name: "Ishita Gupta",
     team: "core",
     imgPath: "/team/ishita.jpg",
@@ -58,4 +52,10 @@ export const teamData: TeamMember[] = [
   { name: "Sakshi", team: "core", imgPath: "/team/sakshi.jpg", social: {} },
   { name: "Adarsh", team: "core", imgPath: "/team/adarsh.jpg", social: {} },
   { name: "Akhil", team: "core", imgPath: "/team/akhil.jpg", social: {} },
+  {
+    name: "Unnati",
+    team: "core",
+    imgPath: "/team/unnati.jpg",
+    social: {},
+  },
 ];
