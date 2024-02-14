@@ -43,7 +43,7 @@ const AdminDashboard = async ({
   if (events.length === 0 && pageNum > 0) redirect(`?page=${pageNum - 1}`);
 
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row">
       <div className="flex-1">
         <div className="mb-4 flex justify-between">
           <div>
@@ -108,7 +108,11 @@ const AdminDashboard = async ({
           </Link>
         </div>
       </div>
-      <Separator className="h-auto mx-5" orientation="vertical" />
+      <Separator className="w-auto my-16 lg:hidden" />
+      <Separator
+        className="h-auto mx-5 hidden lg:block"
+        orientation="vertical"
+      />
       <div className="flex-1">
         <UsersPage />
       </div>
