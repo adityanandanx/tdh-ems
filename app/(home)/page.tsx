@@ -55,7 +55,10 @@ const Home = () => {
             </p>
 
             <div className="flex gap-2 flex-col">
-              <Link href="#">
+              <Link
+                href="https://chat.whatsapp.com/C1OgteyQ9FQFoej3srNIX7"
+                target="_blank"
+              >
                 <Button size={"lg"} variant={"default"}>
                   <SiWhatsapp className="mr-2" size={16} /> Join our Whatsapp
                 </Button>
