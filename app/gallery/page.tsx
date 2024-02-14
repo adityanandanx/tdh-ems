@@ -18,6 +18,8 @@ const GalleryPage = (props: Props) => {
     queryFn: () => getEvents(supabase, 0),
   });
 
+  console.log(events, "BOOOOOO");
+
   const results = useQueries({
     queries: events
       ? events.map((eve) => ({
