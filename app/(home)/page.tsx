@@ -5,6 +5,7 @@ import partyImg from "./assets/party.jpeg";
 import Image from "next/image";
 import EventsCards from "./EventsCards";
 import Link from "next/link";
+import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 // import Card from "../components/ui/Card";
 // import EventGallery from "../components/EventGallery";
 
@@ -22,34 +23,30 @@ const Home = () => {
           thinking and creativity.
         </p>
         <div className="flex gap-5">
-          <a href="/events">
-            {/* <button className="rounded-full bg-[#D7FF65] px-16 py-3"> */}
-            <Button size={"lg"}>Browse Events</Button>
-          </a>
-          {/* <a href="/register">
-            <Button>Sign Up</Button>
-          </a> */}
+          <Link href="/events">
+            <Button size={"lg"} variant={"secondary"}>
+              Know More <ChevronRightIcon className="ml-3 -mr-3" size={16} />
+            </Button>
+          </Link>
+          <Link href="/register">
+            <Button size={"lg"}>
+              Sign Up <ChevronRightIcon className="ml-3 -mr-3" size={16} />
+            </Button>
+          </Link>
         </div>
       </section>
 
       <section className="px-5 flex flex-col items-center justify-center text-left py-32 gap-5">
         <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row gap-5">
           <div className="flex-1 max-h-[400px]">
-            {/* <img
-              className="w-full h-full object-cover"
-              src="./assets/party.jpeg"
-              alt="party"
-            /> */}
             <Image
               className="h-full w-full object-cover rounded-md"
               alt="partying image"
               src={partyImg}
             />
           </div>
-          <div className="flex flex-col gap-5 flex-1">
-            <h1 className="relative text-4xl font-semibold">
-              Join our community
-            </h1>
+          <div className="flex flex-col gap-5 flex-1 justify-center">
+            <h1 className="relative text-4xl font-semibold">Community</h1>
             <p>
               Unlock your potential and join us on a journey of knowledge,
               growth, and inspiration. Our seminars are designed to empower you
@@ -57,12 +54,13 @@ const Home = () => {
               {"'"}s ever-changing world. Don{"'"}t miss the opportunity.
             </p>
 
-            <Link
-              href="/auth/signup"
-              // className="text-xl py-4 px-10 rounded-full hover:bg-white hover:text-black transition-colors w-fit"
-            >
-              <Button size={"lg"}>Create an account</Button>
-            </Link>
+            <div className="flex gap-2 flex-col">
+              <Link href="#">
+                <Button size={"lg"} variant={"default"}>
+                  <SiWhatsapp className="mr-2" size={16} /> Join our Whatsapp
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -73,32 +71,6 @@ const Home = () => {
             <div className="bg-primary h-1 absolute left-0 right-0"></div>
           </h1>
           <EventsCards />
-        </div>
-      </section>
-
-      <section className="px-5 flex flex-col items-center justify-center text-center py-32 gap-5">
-        <div className="max-w-screen-xl mx-auto flex flex-col gap-5 items-center justify-center">
-          <h1 className="relative text-4xl font-semibold">
-            About Us
-            <div className="bg-primary h-1 absolute left-0 right-0"></div>
-          </h1>
-          <p>
-            The Designnovation Hub has the vision to create impactful
-            technological innovations and inspire students to innovate and bring
-            fresh perspectives to real-world problems.The club aims to promote
-            design thinking and creativity, collaborate with other clubs in
-            various fields, and contribute to the growth of society. The mission
-            includes providing knowledge about design thinking, conducting
-            workshops and sessions, facilitating team projects.
-          </p>
-          <a
-            href="/about"
-            // className="text-xl py-4 px-10 rounded-full hover:bg-white hover:text-black transition-colors w-fit"
-          >
-            <Button size={"lg"} variant={"link"}>
-              Learn More <ExternalLinkIcon size={16} className=" ml-1" />
-            </Button>
-          </a>
         </div>
       </section>
     </>

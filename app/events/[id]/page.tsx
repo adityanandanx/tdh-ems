@@ -41,7 +41,6 @@ const EventPage = ({ params }: Props) => {
 
   return (
     <>
-      <GalleryView eventId={event.id} />
       <div className="flex flex-col md:flex-row gap-10 items-start max-w-screen-xl mx-auto">
         <SidePanel event={event} />
         <div className="">
@@ -53,6 +52,7 @@ const EventPage = ({ params }: Props) => {
           <p className="">{event.desc}</p>
         </div>
       </div>
+      <GalleryView eventId={event.id} />
     </>
   );
 };

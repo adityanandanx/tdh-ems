@@ -14,6 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Gallery, GallerySkeleton } from "@/components/specific/gallery";
 
 type Props = {
   eventId: number;
@@ -21,9 +22,6 @@ type Props = {
 
 const GalleryView = ({ eventId }: Props) => {
   const supabase = useSupabase();
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [current, setCurrent] = useState(0);
 
   const {
     data: imgUrls,
@@ -34,12 +32,7 @@ const GalleryView = ({ eventId }: Props) => {
     queryFn: () => getEventGallery(supabase, eventId),
   });
 
-  if (isPending)
-    return (
-      <div>
-        <Skeleton className="w-full h-32" />
-      </div>
-    );
+  if (isPending) return <GallerySkeleton />;
 
   if (isError)
     return (
@@ -49,48 +42,9 @@ const GalleryView = ({ eventId }: Props) => {
     );
 
   return (
-    <>
-      <div className="flex flex-wrap items-start justify-center gap-5 mb-5">
-        {imgUrls.map((url, i) => (
-          <Image
-            key={url}
-            className="w-auto max-h-[256px] rounded cursor-pointer object-contain"
-            onClick={() => {
-              setModalOpen(true);
-              setCurrent(i);
-            }}
-            src={url}
-            alt="image"
-            width={512}
-            height={256}
-          />
-        ))}
-      </div>
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="w-full p-0 max-w-screen-lg h-[98vh]">
-          <Carousel
-            opts={{ startIndex: current, loop: true }}
-            className="my-auto"
-          >
-            <CarouselContent className="">
-              {imgUrls.map((url) => (
-                <CarouselItem key={url}>
-                  <Image
-                    className="w-auto h-full max-h-[98vh] rounded-lg object-contain cursor-pointer mx-auto"
-                    src={url}
-                    alt="image"
-                    width={1080}
-                    height={1080}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </DialogContent>
-      </Dialog>
-    </>
+    <div className="py-10 flex-1">
+      <Gallery imgUrls={imgUrls} />
+    </div>
   );
 };
 

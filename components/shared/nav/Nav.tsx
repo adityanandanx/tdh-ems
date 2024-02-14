@@ -28,6 +28,7 @@ const Nav = async (props: Props) => {
         <NavLinks>
           <Link href="/events">Events</Link>
           <Link href="/about">About</Link>
+          <Link href="/gallery">Gallery</Link>
           <Link href="https://www.instagram.com/tdhgeu" target="_blank">
             Contact
           </Link>
