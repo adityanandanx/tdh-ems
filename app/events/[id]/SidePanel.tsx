@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { EventsRow } from "@/lib/supabase/types";
 import { formatTimeStamp } from "@/lib/utils";
 import {
@@ -72,6 +73,18 @@ const SidePanel = ({ event }: Props) => {
         )}
       </div>
       {/* <Card className="p-4 text-center aspect-square w-52 h-52 leading-none flex flex-col items-center justify-between bg-background self-center md:self-start"></Card> */}
+    </div>
+  );
+};
+
+export const SidePanelSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-5">
+      <Skeleton className="p-4 text-center aspect-square w-64 h-64 self-center md:self-start" />
+      <div className="flex flex-col gap-2">
+        <Skeleton className="w-3/4 h-4" />
+        <Skeleton className="w-1/2 h-4" />
+      </div>
     </div>
   );
 };
