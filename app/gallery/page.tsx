@@ -1,5 +1,6 @@
 "use client";
 import { Gallery, GallerySkeleton } from "@/components/specific/gallery";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getEventGallery, getEvents } from "@/lib/actions/events";
 import { getGalleryImageUrlFromName } from "@/lib/actions/utils";
 import { useSupabase } from "@/lib/supabase/client";
@@ -12,7 +13,7 @@ type Props = {};
 
 const GalleryPage = (props: Props) => {
   const supabase = useSupabase();
-  const { data: events } = useQuery({
+  const { data: events, isPending: eventPending } = useQuery({
     queryKey: ["event"],
     queryFn: () => getEvents(supabase, 0),
   });
@@ -43,10 +44,16 @@ const GalleryPage = (props: Props) => {
     <>
       <section className="relative px-5 flex flex-col py-32 gap-5 overflow-hidden max-w-screen-xl mx-auto">
         <h1 className="text-6xl font-bold">Gallery</h1>
-        {results.map((result, i) => {
-          if (result.isPending) return <GallerySkeleton key={i} />;
-        })}
-        <Gallery imgUrls={imgUrls} />
+        {eventPending ? (
+          <GallerySkeleton />
+        ) : (
+          <>
+            {results.map((result, i) => {
+              if (result.isPending) return <GallerySkeleton key={i} />;
+            })}
+            <Gallery imgUrls={imgUrls} />
+          </>
+        )}
       </section>
     </>
   );
