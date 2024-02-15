@@ -79,11 +79,11 @@ export const columns: ColumnDef<UsersRow>[] = [
     header: () => <div className="text-right">Role</div>,
     cell: ({ row }) => {
       return (
-        <UserRolesSelect
-          userId={row.getValue("id")}
-          currentRole={row.getValue("role")}
-        />
-        // <div className="text-right font-medium">{row.getValue("role")}</div>
+        // <UserRolesSelect
+        //   userId={row.getValue("id")}
+        //   currentRole={row.getValue("role")}
+        // />
+        <div className="text-right font-medium">{row.getValue("role")}</div>
       );
     },
   },
