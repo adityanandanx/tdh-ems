@@ -14,7 +14,7 @@ const EventUsersView = ({ eventId }: Props) => {
   const { data, isPending, isError, error } = useRegisteredUsersQuery(eventId);
   const users: UsersRow[] = [];
   if (isError) {
-    toast({ title: "An error occured", description: error.message });
+    toast({ title: "An error occurred", description: error.message });
     return null;
   }
   data?.forEach((d) => {

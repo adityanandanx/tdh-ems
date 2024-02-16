@@ -30,7 +30,7 @@ const EventPage = ({ params }: Props) => {
   if (isError)
     return (
       <>
-        <h1>Sorry, An error occured. Try reloading the page.</h1>
+        <h1>Sorry, An error occurred. Try reloading the page.</h1>
       </>
     );
 

@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { editAvatar } from "./actions";
 import { Input } from "@/components/ui/input";
+import useCurrentUserAvatarMutation from "@/hooks/mutations/useCurrentUserAvatarMutation";
 
 type Props = {
   full_name: string | null;
@@ -22,7 +23,7 @@ type Props = {
 };
 
 const EditAvatar = ({ full_name, avatar_url }: Props) => {
-  const [isPending, startTransition] = useTransition();
+  const { mutate, isPending } = useCurrentUserAvatarMutation();
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({
@@ -36,11 +37,7 @@ const EditAvatar = ({ full_name, avatar_url }: Props) => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!acceptedFiles[0]) return;
-    const fdata = new FormData();
-    fdata.append("avatar", acceptedFiles[0]);
-    console.log(fdata.get("avatar"));
-
-    startTransition(() => editAvatar(fdata));
+    mutate(acceptedFiles[0]);
   };
 
   return (

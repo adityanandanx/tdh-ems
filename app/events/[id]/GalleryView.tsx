@@ -37,7 +37,7 @@ const GalleryView = ({ eventId }: Props) => {
   if (isError)
     return (
       <div>
-        Some Error occured while fetching images. Try reloading the page
+        Some Error occurred while fetching images. Try reloading the page
       </div>
     );
 

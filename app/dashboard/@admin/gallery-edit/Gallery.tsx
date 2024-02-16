@@ -29,7 +29,7 @@ const Gallery = ({ eventId }: Props) => {
   // const imageURLs = await getEventGallery(supabase, eventId);
   if (isError) {
     toast({
-      title: "An error occured while fetching gallery",
+      title: "An error occurred while fetching gallery",
       description: error.message,
     });
   }

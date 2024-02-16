@@ -39,7 +39,7 @@ const NameAlert = (props: Props) => {
   const nameRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   if (isError) {
-    toast({ title: "An Error Occured", description: error.message });
+    toast({ title: "An Error Occurred", description: error.message });
     return null;
   }
 

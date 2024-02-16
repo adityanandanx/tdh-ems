@@ -13,9 +13,11 @@ export default function useUserDataQuery() {
       const { data, error } = await supabase
         .from("users")
         .select()
-        .eq("id", user.id);
+        .eq("id", user.id)
+        .limit(1)
+        .single();
       if (error) throw error;
-      return data[0];
+      return data;
     },
   });
 }

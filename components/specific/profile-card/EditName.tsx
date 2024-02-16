@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Pencil, Check } from "lucide-react";
-import React, { useRef, useState, useTransition } from "react";
-import { editDetails } from "./actions";
+import React, { useEffect, useRef, useState } from "react";
+import { useUserDataMutation } from "@/hooks/mutations";
 
 type Props = {
   full_name: string | null;
@@ -11,23 +11,21 @@ type Props = {
 
 const EditName = ({ full_name }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const { mutateAsync, isPending } = useUserDataMutation();
   const nameInpRef = useRef<null | HTMLInputElement>(null);
 
-  const handleNameChange = async () => {
-    startTransition(async () => {
-      await editDetails({ full_name: nameInpRef.current?.value });
-      setIsEditing(false);
-    });
-  };
+  useEffect(() => {
+    nameInpRef.current?.focus();
+  }, [isEditing]);
 
   return (
     <div className="flex items-center gap-3 group">
       {isEditing ? (
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            handleNameChange();
+            await mutateAsync({ full_name: nameInpRef.current?.value });
+            setIsEditing(false);
           }}
           className="flex items-center gap-3 flex-1"
         >
@@ -36,6 +34,7 @@ const EditName = ({ full_name }: Props) => {
             className="w-full flex-1"
             defaultValue={full_name || ""}
             name="full_name"
+            disabled={isPending}
           />
           <Button
             type="submit"

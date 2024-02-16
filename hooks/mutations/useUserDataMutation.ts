@@ -6,17 +6,19 @@ import { useUserQuery } from "../queries";
 
 export default function useUserDataMutation() {
   const supabase = useSupabase();
-  const { data: user } = useUserQuery();
+  const { data: user, isError, isPending, error: userError } = useUserQuery();
   const qc = useQueryClient();
   const { toast } = useToast();
   return useMutation({
     mutationFn: async (newValues: Partial<UsersRow>) => {
-      if (!user?.id) {
-        toast({
-          title: "You are not logged in.",
-          description: "Login first to change data.",
-        });
-        return null;
+      if (isError) {
+        throw userError;
+      }
+      if (isPending) {
+        throw new Error("Cannot get user data. Try after some time.");
+      }
+      if (!user) {
+        throw new Error("You are not logged in");
       }
       const { data, error, count } = await supabase
         .from("users")
@@ -30,7 +32,7 @@ export default function useUserDataMutation() {
     },
     onError: (error) => {
       console.error(error);
-      toast({ title: "An error occured", description: error.message });
+      toast({ title: "An error occurred", description: error.message });
     },
   });
 }
