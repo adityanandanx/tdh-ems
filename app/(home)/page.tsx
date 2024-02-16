@@ -28,7 +28,7 @@ const Home = () => {
               Know More <ChevronRightIcon className="ml-3 -mr-3" size={16} />
             </Button>
           </Link>
-          <Link href="/register">
+          <Link href="/auth/signup">
             <Button size={"lg"}>
               Sign Up <ChevronRightIcon className="ml-3 -mr-3" size={16} />
             </Button>
