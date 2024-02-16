@@ -34,7 +34,7 @@ export const editDetails = async (
   if (!user) throw new Error("No user");
   const { error } = await supabase
     .from("users")
-    .update({ ...newdata, role: "ADMIN" })
+    .update({ ...newdata })
     .eq("id", user.id);
   if (error) throw new Error(error.message);
   revalidatePath("/dashboard");

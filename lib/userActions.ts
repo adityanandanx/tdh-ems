@@ -1,10 +1,10 @@
 "use server";
 import { cache } from "react";
 import { getSupabase } from "./supabase/server";
-import { EventsColumn, EventsRow } from "./supabase/types";
-import { cookies } from "next/headers";
+import { EventsRow } from "./supabase/types";
+import { User } from "@supabase/supabase-js";
 
-const getUser = cache(async () => {
+const getUser = cache(async (): Promise<User | null> => {
   const supabase = getSupabase();
   const { data } = await supabase.auth.getUser();
   return data.user;

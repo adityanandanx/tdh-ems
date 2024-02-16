@@ -1,6 +1,7 @@
 import { getUser, getUserRole } from "@/lib/userActions";
 import { redirect } from "next/navigation";
 import React, { ReactNode } from "react";
+import NameAlert from "./NameAlert/NameAlert";
 
 type Props = {
   children: ReactNode;
@@ -21,6 +22,7 @@ const DashboardLayout = async ({
   return (
     <main>
       <section>
+        <NameAlert />
         <div className="max-w-screen-xl mx-auto">
           {(() => {
             switch (role) {
