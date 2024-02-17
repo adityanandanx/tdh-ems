@@ -12,6 +12,7 @@ export const teamData: TeamMember[] = [
       github: "https://github.com/iMADi-ARCH/",
       linkedin: "https://www.linkedin.com/in/aditya-nandan-thats-it",
       twitter: "https://twitter.com/iMADi69235681",
+      insta: "https://www.instagram.com/mad.thats.it/",
     },
   },
   {
