@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "supabase start && yarn types && next dev",
+    "dev": "yarn types && next dev",
+    "db": "supabase start",
     "build": "next build",
     "start": "concurrently \"next start\" \"supabase start\"",
     "types": "supabase gen types typescript --local > schema.gen.ts",
