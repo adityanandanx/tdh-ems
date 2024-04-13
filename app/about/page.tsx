@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const About = () => {
   return (
@@ -58,9 +59,15 @@ const About = () => {
               harnessing the power of innovation to shape a brighter future for
               all.
             </p>
-            <Button size={"lg"} variant={"secondary"}>
-              <SiWhatsapp className="mr-2" size={16} /> Join our Community
-            </Button>
+
+            <Link
+              href="https://chat.whatsapp.com/C1OgteyQ9FQFoej3srNIX7"
+              target="_blank"
+            >
+              <Button size={"lg"} variant={"secondary"}>
+                <SiWhatsapp className="mr-2" size={16} /> Join our Community
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -118,9 +125,14 @@ const About = () => {
                 Here{"'"}s to the continued growth and success of TDH, and to
                 the bright futures of all its members. Cheers!{'"'}
               </p>
-              <Button size={"lg"} variant={"secondary"}>
-                <SiWhatsapp className="mr-2" size={16} /> Join our Community
-              </Button>
+              <Link
+                href="https://chat.whatsapp.com/C1OgteyQ9FQFoej3srNIX7"
+                target="_blank"
+              >
+                <Button size={"lg"} variant={"secondary"}>
+                  <SiWhatsapp className="mr-2" size={16} /> Join our Community
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
