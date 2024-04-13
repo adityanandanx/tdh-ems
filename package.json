@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "yarn types && next dev",
-    "db": "supabase start",
+    "dev": "next dev",
+    "db:start": "yarn supabase start",
+    "db:stop": "yarn supabase stop",
+    "db:status": "yarn supabase status",
+    "db:types": "yarn --silent supabase gen types typescript --local > schema.gen.ts",
+    "db:reset": "yarn --silent supabase db reset --local",
+    "migration:generate": "yarn --silent supabase db diff -f",
+    "migration:push": "yarn --silent supabase db push --local",
     "build": "next build",
     "start": "concurrently \"next start\" \"supabase start\"",
-    "types": "supabase gen types typescript --local > schema.gen.ts",
     "lint": "next lint"
   },
   "dependencies": {
