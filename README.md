@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TDH - Event Management System
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+This Event management system is built with Next.js and utilizes Supabase as the backend database. Supabase is set up to run locally using Docker containers. Below are instructions on how to set up, run, and manage the project.
 
-```bash
-npm run dev
-# or
+## Setup
+
+### Prerequisites
+
+Before getting started, ensure you have the following installed on your system:
+
+- [Docker](https://docs.docker.com/get-docker/)
+- Node.js
+- Yarn
+
+### Installation
+
+1. Clone the repository to your local machine.
+2. Navigate to the project directory in your terminal.
+
+### Setting up Supabase Locally
+
+1. Run the following command to start Supabase locally:
+   ```
+   yarn db:start
+   ```
+2. Verify the status of the local Supabase instance:
+   ```
+   yarn db:status
+   ```
+3. Copy the example env file [`.env.example`](./.env.example) to `.env.local`
+   ```
+   cp .env.example .env.local
+   ```
+4. Copy the `API URL` and `anon key` from the output of step 2 and paste it as respective variable in `.env.local` file
+
+### Database Migration
+
+1. To generate migration files based on changes in the database schema, run:
+   ```
+   yarn migration:generate
+   ```
+2. Push the generated migrations to the local Supabase instance with the following command:
+   ```
+   yarn migration:push
+   ```
+
+### Starting the Development Server
+
+To start the Next.js development server, run:
+
+```
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `dev`: Starts the Next.js development server.
+- `db:start`: Starts the local Supabase instance using Docker containers.
+- `db:stop`: Stops the local Supabase instance.
+- `db:status`: Checks the status of the local Supabase instance.
+- `db:types`: Generates TypeScript types to the file [`./schema.gen.ts`](./schema.gen.ts) based on the Supabase schema.
+- `db:reset`: Resets the local Supabase database.
+- `migration:generate`: Generates migration files based on database schema changes.
+- `migration:push`: Pushes migration files to the local Supabase instance.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Additional Information
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For more information about Next.js, visit the [Next.js documentation](https://nextjs.org/docs).
+For more information about Supabase, visit the [Supabase documentation](https://supabase.io/docs).
