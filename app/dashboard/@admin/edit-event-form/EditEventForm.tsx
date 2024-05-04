@@ -156,7 +156,6 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
               <FormItem>
                 <FormLabel>Event Description</FormLabel>
                 <FormControl>
-                  {/* <Textarea placeholder="Describe the event" {...field} /> */}
                   <SimpleMDE placeholder="Describe the event" {...field} />
                 </FormControl>
                 <FormMessage />

@@ -56,13 +56,13 @@ const EventPage = ({ params }: Props) => {
           <>
             <SidePanel event={event} />
             <div className="">
-              <h1 className="text-4xl font-bold">{event.title}</h1>
+              <h1 className="text-5xl font-bold">{event.title}</h1>
               <h2 className="mb-5">
                 <span className="text-muted-foreground">Venue: </span>
                 {event.venue}
               </h2>
-              <div className="prose lg:prose-l">
-                <div className="!text-foreground prose-strong:text-foreground prose-headings:text-foreground">
+              <div className="prose  prose-sm">
+                <div className="!text-foreground dark:prose-invert">
                   <MarkdownView
                     markdown={event.desc}
                     sanitizeHtml={(html) => {
