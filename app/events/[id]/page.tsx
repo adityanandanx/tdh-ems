@@ -61,13 +61,15 @@ const EventPage = ({ params }: Props) => {
                 <span className="text-muted-foreground">Venue: </span>
                 {event.venue}
               </h2>
-              <div className="">
-                <MarkdownView
-                  markdown={event.desc}
-                  sanitizeHtml={(html) => {
-                    return DOMPurify.sanitize(html);
-                  }}
-                />
+              <div className="prose lg:prose-l">
+                <div className="!text-foreground prose-strong:text-foreground prose-headings:text-foreground">
+                  <MarkdownView
+                    markdown={event.desc}
+                    sanitizeHtml={(html) => {
+                      return DOMPurify.sanitize(html);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </>

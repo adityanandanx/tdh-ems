@@ -72,6 +72,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/dompurify": "^3.0.5",
     "@types/lodash": "^4.14.201",
     "@types/node": "^20",
