@@ -5,6 +5,8 @@ import { ControllerRenderProps, Field, useForm } from "react-hook-form";
 import { TypeOf, z } from "zod";
 import { eventSchema } from "./schema";
 import { EventsRow } from "@/lib/supabase/types";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -154,7 +156,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
               <FormItem>
                 <FormLabel>Event Description</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Describe the event" {...field} />
+                  <SimpleMDE placeholder="Describe the event" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

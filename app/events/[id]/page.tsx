@@ -4,10 +4,12 @@ import { getEvent } from "@/lib/actions/events";
 import { useSupabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
+import MarkdownView from "react-showdown";
 import React from "react";
 import GalleryView from "./GalleryView";
 import SidePanel, { SidePanelSkeleton } from "./SidePanel";
 import { GallerySkeleton } from "@/components/specific/gallery";
+import * as DOMPurify from "dompurify";
 
 type Props = {
   params: {
@@ -54,12 +56,21 @@ const EventPage = ({ params }: Props) => {
           <>
             <SidePanel event={event} />
             <div className="">
-              <h1 className="text-4xl font-bold">{event.title}</h1>
+              <h1 className="text-5xl font-bold">{event.title}</h1>
               <h2 className="mb-5">
                 <span className="text-muted-foreground">Venue: </span>
                 {event.venue}
               </h2>
-              <p className="">{event.desc}</p>
+              <div className="prose  prose-sm">
+                <div className="!text-foreground dark:prose-invert">
+                  <MarkdownView
+                    markdown={event.desc}
+                    sanitizeHtml={(html) => {
+                      return DOMPurify.sanitize(html);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </>
         )}
