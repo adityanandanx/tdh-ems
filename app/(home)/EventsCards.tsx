@@ -25,7 +25,7 @@ const EventsCards = async (props: Props) => {
   
 
   return (
-    <div className="w-full bg-red-200 flex flex-col items-center gap-5">
+    <div className="w-full  flex flex-col items-center gap-5">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full justify-items-center">
 
         {events.length === 0 && (
