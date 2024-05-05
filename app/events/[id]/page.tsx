@@ -38,7 +38,7 @@ const EventPage = ({ params }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row gap-10 items-start max-w-screen-xl mx-auto">
+      <div className="flex flex-col  md:flex-row gap-10 items-start max-w-screen-xl mx-auto">
         {isPending ? (
           <>
             <SidePanelSkeleton />

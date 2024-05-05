@@ -381,9 +381,9 @@
   integrity sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==
 
 "@icons-pack/react-simple-icons@^9.3.0":
-  version "9.3.0"
-  resolved "https://registry.npmjs.org/@icons-pack/react-simple-icons/-/react-simple-icons-9.3.0.tgz"
-  integrity sha512-e2VRDFrhI9rCkEdkuAUhf/Ool0cwusWnwKqMACbIRMLHXxnHp1SdnGlRaEEjDeF4R0pQaEkmVNs2x2vn1sl+7A==
+  version "9.4.1"
+  resolved "https://registry.npmjs.org/@icons-pack/react-simple-icons/-/react-simple-icons-9.4.1.tgz"
+  integrity sha512-oDX8iE/AOyRIY0ys56+eybKSsyZODHQIPZ5mAGVxx3TszkA5l8lIxKl8HI9F801Y1CJxcySBjIk1XibrnFF0Hw==
 
 "@img/sharp-win32-x64@0.33.2":
   version "0.33.2"
