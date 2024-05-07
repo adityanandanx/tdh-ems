@@ -21,9 +21,13 @@ const EventsCards = async (props: Props) => {
   const supabase = getSupabase();
   const events = await getEvents(supabase, 0, 3, true);
 
+  
+  
+
   return (
-    <div className="w-full flex flex-col items-center gap-5">
-      <div className="w-full flex items-center lg:items-stretch flex-col lg:flex-row gap-5">
+    <div className="w-full  flex flex-col items-center gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full justify-items-center">
+
         {events.length === 0 && (
           <p>Sorry, no events available at the moment.</p>
         )}
@@ -59,8 +63,10 @@ const EventsCards = async (props: Props) => {
               </CardHeader>
               <CardContent className="h-32">
                 <p className="text-sm line-clamp-4">{event.desc}</p>
+
               </CardContent>
             </Card>
+
           </Link>
         ))}
       </div>

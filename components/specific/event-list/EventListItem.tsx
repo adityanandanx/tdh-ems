@@ -81,7 +81,7 @@ const EventListItem = ({ event, registered = false }: Props) => {
           />
         </>
       )}
-      <div className="w-full z-20 bg-gradient-to-t from-card to-transparent">
+      <div className="w-full z-20 bg-gradient-to-t  from-card to-transparent">
         <CardHeader className="pb-2 pt-20">
           <div>
             <CardTitle className="text-xl">{event.title}</CardTitle>
