@@ -65,7 +65,7 @@ const EventList = ({}: Props) => {
     <div
       style={{ height: viewHeight - navHeight - 1 }}
       autoFocus
-      className="relative  snap-y overflow-y-scroll snap-mandatory flex flex-col items-center gap-3 py-3 w-full"
+      className="relative snap-y overflow-y-scroll snap-mandatory flex flex-col items-center gap-3 py-3 w-full"
     >
       {status === "pending" ? null : status === "error" ? (
         <p>Error: {JSON.stringify(error.message)}</p>
