@@ -44,7 +44,6 @@ const UploadDropZone = ({ eventId }: Props) => {
     files.forEach(async (file) => {
       const fdata = new FormData();
       fdata.append("image", file);
-      console.log(fdata.get("image"));
       await uploadMutation.mutateAsync([eventId, fdata]);
       setFiles((f) => f.filter((p) => p !== file));
     });

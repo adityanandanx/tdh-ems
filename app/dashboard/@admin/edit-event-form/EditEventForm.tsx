@@ -70,8 +70,7 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   });
 
   async function onSubmit(values: z.infer<typeof eventSchema>) {
-    console.log(values);
-    switch (action) {
+switch (action) {
       case "update":
         if (!defaultValues?.id) throw new Error("No ID for event update");
         updateEventMutation.mutate({ id: defaultValues.id, ...values });
@@ -79,7 +78,6 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
       case "create":
         createEventMutation.mutate({ ...values });
         const id = createEventMutation.data?.data;
-        console.log(id);
         router.push(`event/${id}`);
         break;
     }
@@ -116,7 +114,6 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
     d: Date | undefined,
     field: ControllerRenderProps<z.infer<typeof eventSchema>, T>
   ) {
-    console.log(typeof field.value);
     if (!d || !isString(field.value)) return;
     const olddate = new Date(field.value);
     const newdate = new Date(
@@ -132,7 +129,6 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   return (
     <Form {...form}>
       <div className="flex-1">
-        {/* <Button onClick={() => console.log(form.getValues())}>LOG</Button> */}
         <h1 className="text-2xl font-medium">Event Details</h1>
         <p className="text-sm mb-4">All the details regarding the event</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

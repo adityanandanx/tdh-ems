@@ -11,7 +11,6 @@ const getEvent = async (
   supabase: TypedSupabaseClient
 ): Promise<EventsRow> => {
   const { data, error } = await supabase.from("events").select().eq("id", id);
-  console.log(data, error);
   if (error) throw error;
   return data[0];
 };
@@ -72,7 +71,6 @@ const getEvents = async (
     .range(page * limit, page * limit + limit - 1)
     .order("registration_end", { ascending: true, nullsFirst: false });
   if (error) throw new Error(error.message);
-  console.log(page);
 
   return data;
 };
@@ -91,7 +89,6 @@ const searchEvents = async (
     .range(page * limit, page * limit + limit - 1)
     .order("registration_end", { ascending: true, nullsFirst: false });
   if (error) throw new Error(error.message);
-  console.log(page);
 
   return data;
 };
@@ -109,7 +106,6 @@ const searchEventsByTags = async (
     .range(page * limit, page * limit + limit - 1)
     .order("registration_end", { ascending: true, nullsFirst: false });
   if (error) throw new Error(error.message);
-  console.log(page);
 
   return data;
 };

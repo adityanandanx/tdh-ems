@@ -18,8 +18,6 @@ const GalleryPage = (props: Props) => {
     queryFn: () => getEvents(supabase, 0),
   });
 
-  console.log(events, "BOOOOOO");
-
   const results = useQueries({
     queries: events
       ? events.map((eve) => ({
@@ -40,7 +38,6 @@ const GalleryPage = (props: Props) => {
     //   imgUrls.push(getGalleryImageUrlFromName(eve.id, eve.cover_image_url));
     if (result.data) imgUrls.push(...result.data);
   });
-  console.log(imgUrls);
 
   return (
     <>

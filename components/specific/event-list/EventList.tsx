@@ -36,8 +36,6 @@ const EventList = ({}: Props) => {
   const navHeight = useNavHeight();
   const viewHeight = useViewportHeight();
 
-  console.log(registeredEventsQuery);
-
   const eventsQuery = useInfiniteQuery({
     queryKey: ["events"],
     queryFn: fetchEvents,

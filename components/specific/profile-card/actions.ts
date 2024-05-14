@@ -18,7 +18,6 @@ export const editAvatar = async (fdata: FormData) => {
   const { data, error } = await supabase.storage
     .from("avatar")
     .upload(`${user.id}/profile`, avatar, { upsert: true });
-  // console.log({ data });
 
   if (error) throw new Error(error.message);
   revalidatePath("/dashboard");
@@ -29,7 +28,6 @@ export const editDetails = async (
 ) => {
   const supabase = getSupabase();
   const user = await getUser();
-  console.log(newdata);
 
   if (!user) throw new Error("No user");
   const { error } = await supabase
