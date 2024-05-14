@@ -70,7 +70,8 @@ const EditEventForm = ({ defaultValues, action = "update" }: Props) => {
   });
 
   async function onSubmit(values: z.infer<typeof eventSchema>) {
-switch (action) {
+    
+    switch (action) {
       case "update":
         if (!defaultValues?.id) throw new Error("No ID for event update");
         updateEventMutation.mutate({ id: defaultValues.id, ...values });
@@ -129,6 +130,7 @@ switch (action) {
   return (
     <Form {...form}>
       <div className="flex-1">
+        {/* <Button onClick={() => console.log(form.getValues())}>LOG</Button> */}
         <h1 className="text-2xl font-medium">Event Details</h1>
         <p className="text-sm mb-4">All the details regarding the event</p>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
