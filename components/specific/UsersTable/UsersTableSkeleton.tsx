@@ -35,9 +35,10 @@ const UsersTableSkeleton = (props: Props) => {
           <TableBody>
             {[...Array(10)].map((_, i) => (
               <TableRow key={i}>
-                {[...Array(4)].map((_, i) => (
-                  <TableCell key={i}>
-                    <Skeleton className="w-16 ml-auto h-3" />
+                {[...Array(4)].map((_, j) => (
+                  <TableCell key={`${i}-${j}`}>
+                    <Skeleton
+                    className="w-16 ml-auto h-3" />
                   </TableCell>
                 ))}
               </TableRow>
