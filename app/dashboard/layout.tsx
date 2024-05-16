@@ -33,7 +33,7 @@ const DashboardLayout = async ({
               case "ADMIN":
                 return admin;
               default:
-                return <>WTF</>;
+              throw new Error("Unexpected User Role encountered. ");
             }
           })()}
         </div>
