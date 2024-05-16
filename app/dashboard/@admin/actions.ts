@@ -9,7 +9,6 @@ const supabase = createClient();
 const updateEvent = async (
   newdata: Partial<EventsRow> & { id: string | number }
 ): Promise<ServerActionResponse> => {
-  console.log("UPDATING", newdata);
 
   const { error } = await supabase
     .from("events")
@@ -25,7 +24,7 @@ const createEvent = async (
     .from("events")
     .insert(newdata)
     .select("id");
-  console.log("CREATED", newdata);
+
 
   return { error: error?.message, data: data?.[0].id };
 };
