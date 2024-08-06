@@ -6,12 +6,30 @@ import Image from "next/image";
 import EventsCards from "./EventsCards";
 import Link from "next/link";
 import { SiWhatsapp } from "@icons-pack/react-simple-icons";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel"
 // import Card from "../components/ui/Card";
 // import EventGallery from "../components/EventGallery";
 
 const Home = () => {
   return (
     <>
+      <section className="px-5 flex flex-col items-center justify-center pt-10 gap-5">
+      <h1 className="text-3xl">Join Freshers Group 2024</h1>
+      <Link href="https://chat.whatsapp.com/JT5CEE94crK72VviHrSqW9" target="_blank">
+            <Button size={"lg"}>
+              Join Group<ChevronRightIcon className="ml-3 -mr-3" size={16} />
+            </Button>
+          </Link>
+      </section>
+
       <section className="px-5 flex flex-col items-center justify-center text-center py-32 gap-5">
         <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/75 py-2">
           &ldquo;Technology is Best when it brings people together&rdquo;
