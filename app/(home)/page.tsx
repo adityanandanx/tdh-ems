@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <section className="px-5 flex flex-col items-center justify-center pt-10 gap-5">
-      <h1 className="text-3xl">Join Freshers Group 2024</h1>
+      <h1 className="text-3xl sm:text-2xl">Join Freshers Group 2024</h1>
       <Link href="https://chat.whatsapp.com/JT5CEE94crK72VviHrSqW9" target="_blank">
             <Button size={"lg"}>
               Join Group<ChevronRightIcon className="ml-3 -mr-3" size={16} />
