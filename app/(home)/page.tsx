@@ -22,7 +22,9 @@ const Home = () => {
   return (
     <>
       <section className="flex flex-col gap-5 justify-center items-center px-5 pt-10">
-        <h1 className="text-3xl sm:text-2xl">Join Freshers Group 2024</h1>
+        <h1 className="text-3xl text-center sm:text-2xl">
+          Join Freshers Group 2024
+        </h1>
         <Link
           className="text-center"
           href="https://chat.whatsapp.com/JT5CEE94crK72VviHrSqW9"
