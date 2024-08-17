@@ -14,24 +14,29 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 // import Card from "../components/ui/Card";
 // import EventGallery from "../components/EventGallery";
 
 const Home = () => {
   return (
     <>
-      <section className="px-5 flex flex-col items-center justify-center pt-10 gap-5">
-      <h1 className="text-3xl sm:text-2xl">Join Freshers Group 2024</h1>
-      <Link href="https://chat.whatsapp.com/JT5CEE94crK72VviHrSqW9" target="_blank">
-            <Button size={"lg"}>
-              Join Group<ChevronRightIcon className="ml-3 -mr-3" size={16} />
-            </Button>
-          </Link>
+      <section className="flex flex-col gap-5 justify-center items-center px-5 pt-10">
+        <h1 className="text-3xl sm:text-2xl">Join Freshers Group 2024</h1>
+        <Link
+          className="text-center"
+          href="https://chat.whatsapp.com/JT5CEE94crK72VviHrSqW9"
+          target="_blank"
+        >
+          <Button size={"lg"}>
+            Join Group
+            <ChevronRightIcon className="-mr-3 ml-3" size={16} />
+          </Button>
+        </Link>
       </section>
 
-      <section className="px-5 flex flex-col items-center justify-center text-center py-32 gap-5">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl max-w-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/75 py-2">
+      <section className="flex flex-col gap-5 justify-center items-center px-5 py-32 text-center">
+        <h1 className="py-2 max-w-2xl text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b sm:text-5xl md:text-6xl from-foreground to-foreground/75">
           &ldquo;Technology is Best when it brings people together&rdquo;
         </h1>
         <p className="max-w-screen-md text-base sm:text-xl text-muted-foreground">
@@ -43,27 +48,27 @@ const Home = () => {
         <div className="flex gap-5">
           <Link href="/events">
             <Button size={"lg"} variant={"secondary"}>
-              Know More <ChevronRightIcon className="ml-3 -mr-3" size={16} />
+              Know More <ChevronRightIcon className="-mr-3 ml-3" size={16} />
             </Button>
           </Link>
           <Link href="/auth/signup">
             <Button size={"lg"}>
-              Sign Up <ChevronRightIcon className="ml-3 -mr-3" size={16} />
+              Sign Up <ChevronRightIcon className="-mr-3 ml-3" size={16} />
             </Button>
           </Link>
         </div>
       </section>
 
-      <section className="px-5 flex flex-col items-center justify-center text-left py-32 gap-5">
-        <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row gap-5">
+      <section className="flex flex-col gap-5 justify-center items-center px-5 py-32 text-left">
+        <div className="flex flex-col gap-5 mx-auto max-w-screen-xl sm:flex-row">
           <div className="flex-1 max-h-[400px]">
             <Image
-              className="h-full w-full object-cover rounded-md"
+              className="object-cover w-full h-full rounded-md"
               alt="partying image"
               src={partyImg}
             />
           </div>
-          <div className="flex flex-col gap-5 flex-1 justify-center">
+          <div className="flex flex-col flex-1 gap-5 justify-center">
             <h1 className="relative text-4xl font-semibold">Community</h1>
             <p>
               Unlock your potential and join us on a journey of knowledge,
@@ -72,7 +77,7 @@ const Home = () => {
               {"'"}s ever-changing world. Don{"'"}t miss the opportunity.
             </p>
 
-            <div className="flex gap-2 flex-col">
+            <div className="flex flex-col gap-2">
               <Link
                 href="https://chat.whatsapp.com/C1OgteyQ9FQFoej3srNIX7"
                 target="_blank"
@@ -85,11 +90,11 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="px-5 flex flex-col items-center justify-center text-left py-32 gap-5">
-        <div className="max-w-screen-xl w-full mx-auto flex flex-col gap-10 items-start justify-center">
+      <section className="flex flex-col gap-5 justify-center items-center px-5 py-32 text-left">
+        <div className="flex flex-col gap-10 justify-center items-start mx-auto w-full max-w-screen-xl">
           <h1 className="relative text-4xl font-semibold">
             Take a sneak peek into our efforts
-            <div className="bg-primary h-1 absolute left-0 right-0"></div>
+            <div className="absolute right-0 left-0 h-1 bg-primary"></div>
           </h1>
           <EventsCards />
         </div>
